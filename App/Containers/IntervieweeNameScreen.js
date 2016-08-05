@@ -24,7 +24,7 @@ class IntervieweeNameScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: ''
+      name: 'Bob Jones'
     }
   }
 

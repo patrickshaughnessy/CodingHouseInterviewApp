@@ -2,9 +2,69 @@ import { StyleSheet } from 'react-native'
 import { Colors, Metrics, ApplicationStyles } from '../../Themes/'
 
 export default StyleSheet.create({
+  outerContainer: {
+    flex: 1,
+    marginTop: Metrics.navBarHeight
+  },
   container: {
     flex: 1,
-    marginTop: Metrics.navBarHeight,
-    backgroundColor: Colors.background
+    justifyContent: 'center',
+    backgroundColor: Colors.background,
+  },
+  title: {
+    textAlign: 'center',
+    fontSize: 22,
+    fontWeight: '300',
+    marginBottom: 20,
+    marginTop:20,
+    color: Colors.snow,
+    textDecorationLine: 'underline'
+  },
+  header: {
+    backgroundColor: '#F5FCFF',
+    padding: 10,
+  },
+  headerText: {
+    textAlign: 'center',
+    fontSize: 16,
+    fontWeight: '500',
+  },
+  content: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: '#fff',
+  },
+  active: {
+    backgroundColor: 'rgba(255,255,255,1)',
+  },
+  inactive: {
+    backgroundColor: 'rgba(245,252,255,1)',
+  },
+  selectors: {
+    marginBottom: 10,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  selector: {
+    backgroundColor: '#F5FCFF',
+    padding: 10,
+  },
+  activeSelector: {
+    fontWeight: 'bold',
+  },
+  selectTitle: {
+    fontSize: 14,
+    fontWeight: '500',
+    padding: 10,
+  },
+  footer: {
+    flex:1,
+    backgroundColor:'red'
+  },
+  contentInput: {
+    height: 100,
+    borderColor: 'gray',
+    borderWidth: 1,
+    padding: 10
   }
 })

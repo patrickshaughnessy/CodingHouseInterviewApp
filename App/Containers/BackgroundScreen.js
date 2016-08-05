@@ -1,112 +1,159 @@
-import React from 'react'
+import React, { Component } from 'react';
 import {
   ScrollView,
-  View,
   Text,
-  ListView } from 'react-native'
-import { connect } from 'react-redux'
+  View,
+  TextInput,
+  TouchableHighlight,
+} from 'react-native';
 
-// For empty lists
-import AlertMessage from '../Components/AlertMessageComponent'
+import * as Animatable from 'react-native-animatable';
+import Collapsible from 'react-native-collapsible';
+import Accordion from 'react-native-collapsible/Accordion';
 
-// Styles
 import styles from './Styles/BackgroundScreenStyle'
 
-class BackgroundScreen extends React.Component {
-
-  constructor (props) {
-    super(props)
-    /* ***********************************************************
-    * STEP 1
-    * This is an array of objects with the properties you desire
-    * Usually this should come from Redux mapStateToProps
-    *************************************************************/
-    const dataObjects = [
-      {title: 'First Title', description: 'First Description'},
-      {title: 'Second Title', description: 'Second Description'},
-      {title: 'Third Title', description: 'Third Description'},
-      {title: 'Fourth Title', description: 'Fourth Description'},
-      {title: 'Fifth Title', description: 'Fifth Description'},
-      {title: 'Sixth Title', description: 'Sixth Description'},
-      {title: 'Seventh Title', description: 'Seventh Description'}
-    ]
-
-    /* ***********************************************************
-    * STEP 2
-    * Teach datasource how to detect if rows are different
-    * Make this function fast!  Perhaps something like:
-    *   (r1, r2) => r1.id !== r2.id}
-    *************************************************************/
-    const rowHasChanged = (r1, r2) => r1 !== r2
-
-    // DataSource configured
-    const ds = new ListView.DataSource({rowHasChanged})
-
-    // Datasource is always in state
-    this.state = {
-      dataSource: ds.cloneWithRows(dataObjects)
-    }
-  }
-
-  /* ***********************************************************
-  * STEP 3
-  * `_renderRow` function -How each cell/row should be rendered
-  * It's our best practice to place a single component here:
-  *
-  * e.g.
-    return <MyCustomCell title={rowData.title} description={rowData.description} />
-  *************************************************************/
-  _renderRow (rowData) {
-    return (
-      <View style={styles.row}>
-        <Text style={styles.boldLabel}>{rowData.title}</Text>
-        <Text style={styles.label}>{rowData.description}</Text>
-      </View>
-    )
-  }
-
-  /* ***********************************************************
-  * STEP 4
-  * If your datasource is driven by Redux, you'll need to
-  * reset it when new data arrives.
-  * DO NOT! place `cloneWithRows` inside of render, since render
-  * is called very often, and should remain fast!  Just replace
-  * state's datasource on newProps.
-  *
-  * e.g.
-    componentWillReceiveProps (newProps) {
-      if (newProps.someData) {
-        this.setState({
-          dataSource: this.state.dataSource.cloneWithRows(newProps.someData)
-        })
+const QUESTIONS = [
+  {
+    id: 1,
+    // interviewID: 1,
+    question: 'Where are you from?',
+    placeholder: 'United States',
+    content: ''
+  },
+  {
+    id: 2,
+    // interviewID: 1,
+    question: 'Are you a US citizen?',
+    options: ['Yes', 'No'],
+    value: 'Yes',
+    next: {
+      question: 'Do you have a work permit?',
+      options: ['Yes', 'No'],
+      value: 'Yes',
+      next: {
+        question: 'The cost of the bootcamp is $14K, are you aware of that?',
+        content: ''
       }
     }
-  *************************************************************/
+  },
+  {
+    id: 3,
+    // interviewID: 1,
+    title: 'Where did you go to school',
+    placeholder: '',
+    content: ''
+  },
+  {
+    id: 4,
+    // interviewID: 1,
+    question: 'What was your major?',
+    placeholder: '',
+    next: {
+      question: 'Did you graduate?',
+      options: ['Yes', 'No'],
+      value: 'Yes',
+      next: {
+        question: 'With what degree?',
+        content: ''
+      }
+    }
+  }
+];
 
-  // Used for friendly AlertMessage
-  // returns true if the dataSource is empty
-  _noRowData () {
-    return this.state.dataSource.getRowCount() === 0
+export default class BackgroundScreen extends Component {
+  state = {
+    activeQuestion: '',
+  };
+
+  _toggleExpanded = (question) => {
+    this.setState({ activeQuestion: question.id === this.state.activeQuestion ? '' : question.id });
   }
 
-  render () {
+  _setSection(section) {
+    this.setState({ activeSection: section });
+  }
+
+  _renderHeader(section, i, isActive) {
     return (
-      <View style={styles.container}>
-        <AlertMessage title='Nothing to See Here, Move Along' show={this._noRowData()} />
-        <ListView
-          contentContainerStyle={styles.listContent}
-          dataSource={this.state.dataSource}
-          renderRow={this._renderRow}
-        />
+      <Animatable.View duration={400} style={[styles.header, isActive ? styles.active : styles.inactive]} transition="backgroundColor">
+        <Text style={styles.headerText}>{section.question}</Text>
+      </Animatable.View>
+    );
+  }
+
+  _renderContent(section, i, isActive) {
+    return (
+      <Animatable.View duration={400}  style={[styles.content, isActive ? styles.active : styles.inactive]} transition="backgroundColor">
+        {/* <Animatable.View animation={isActive ? 'slideInUp' : undefined}> */}
+          <TextInput
+            placeholder={section.placeholder}
+            multiline={true}
+            numberOfLines={5}
+            style={styles.contentInput}
+            onChangeText={text => this.setState({ text })}
+            value={this.state.text}
+          />
+        {/* </Animatable.View> */}
+      </Animatable.View>
+    );
+  }
+
+  render() {
+    return (
+      <View style={styles.outerContainer}>
+        <ScrollView>
+          <View style={styles.container}>
+            <Text style={styles.title}>Background</Text>
+
+            {/* <View style={styles.selectors}>
+              <Text style={styles.selectTitle}>Select:</Text>
+              {SELECTORS.map(selector => (
+                <TouchableHighlight key={selector.title} onPress={this._setSection.bind(this, selector.value)}>
+                  <View style={styles.selector}>
+                    <Text style={selector.value === this.state.activeSection && styles.activeSelector}>
+                      {selector.title}
+                    </Text>
+                  </View>
+                </TouchableHighlight>
+              ))}
+            </View> */}
+
+            <TouchableHighlight onPress={this._toggleExpanded.bind(this, QUESTIONS[0])}>
+              <View style={styles.header}>
+                <Text style={styles.headerText}>fs</Text>
+              </View>
+            </TouchableHighlight>
+            <Collapsible collapsed={this.state.activeQuestion !== QUESTIONS[0].id} align="center">
+              <View style={styles.content}>
+                <Text>Bacon ipsum dolor amet chuck turducken landjaeger tongue spare ribs</Text>
+              </View>
+            </Collapsible>
+            <TouchableHighlight onPress={this._toggleExpanded.bind(this, QUESTIONS[1])}>
+              <View style={styles.header}>
+                <Text style={styles.headerText}>fs</Text>
+              </View>
+            </TouchableHighlight>
+            <Collapsible collapsed={this.state.activeQuestion !== QUESTIONS[1].id} align="center">
+              <View style={styles.content}>
+                <Text>Bacon ipsum dolor amet chuck turducken landjaeger tongue spare ribs</Text>
+              </View>
+            </Collapsible>
+            {/* <Accordion
+              activeSection={this.state.activeSection}
+              sections={CONTENT}
+              renderHeader={this._renderHeader}
+              renderContent={this._renderContent.bind(this)}
+              duration={400}
+              onChange={this._setSection.bind(this)}
+            /> */}
+
+          </View>
+        </ScrollView>
+        <View >
+          <Text style={styles.footer}>Footer</Text>
+        </View>
       </View>
-    )
+    );
   }
 }
-
-const mapStateToProps = (state) => {
-  return {
-    // ...redux state to props here
-  }
-}
-
-export default connect(mapStateToProps)(BackgroundScreen)
