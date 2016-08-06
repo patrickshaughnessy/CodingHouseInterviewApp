@@ -1,10 +1,10 @@
 import React from 'react'
 import { View, Text, TextInput, TouchableOpacity } from 'react-native'
-import styles from './Styles/QuestionComponentStyle'
+import styles from './Styles/QuestionStyle'
 
 import RadioButtons from './RadioButtons'
 
-export default class QuestionComponent extends React.Component {
+export default class Question extends React.Component {
   // // Prop type warnings
   // static propTypes = {
   //   someProperty: React.PropTypes.object,
@@ -31,8 +31,11 @@ export default class QuestionComponent extends React.Component {
 
     return (
       <View style={styles.container}>
-        {display}
-        {/* { next ? <QuestionComponent {...next} /> : null } */}
+        <Text>
+          This will be a question
+        </Text>
+        {/* {display} */}
+        {/* { next ? <Question {...next} /> : null } */}
       </View>
     )
   }

@@ -5,13 +5,16 @@ import {
   View,
   TextInput,
   TouchableHighlight,
+  ListView
 } from 'react-native';
+
+import { connect } from 'react-redux';
 
 import * as Animatable from 'react-native-animatable';
 import Collapsible from 'react-native-collapsible';
 import Accordion from 'react-native-collapsible/Accordion';
 
-import QuestionComponent from '../Components/QuestionComponent'
+import Question from '../Components/Question'
 
 import styles from './Styles/BackgroundScreenStyle'
 
@@ -73,19 +76,27 @@ const QUESTIONS = [
   }
 ];
 
-export default class BackgroundScreen extends Component {
+class BackgroundScreen extends Component {
   constructor(props) {
     super(props)
+
+    // const { backgroundQuestions } = this.props
+
+    const rowHasChanged = (r1, r2) => r1 !== r2
+
+    const ds = new ListView.DataSource({rowHasChanged})
+
     this.state = {
-      activeQuestion: '',
-      inputs: {
-        '2': {
-          '1': 'Yes',
-          '2': 'No',
-          '3': 'Parents are rich'
-        }
-      }
-    };
+      dataSource: ds.cloneWithRows(QUESTIONS)
+    }
+  }
+
+  _renderRow (rowData) {
+    return (
+      <View style={styles.row}>
+        <Question />
+      </View>
+    )
   }
 
   _toggleExpanded = (question) => {
@@ -101,14 +112,19 @@ export default class BackgroundScreen extends Component {
   }
 
   render() {
-    console.log(this.state);
     return (
       <View style={styles.outerContainer}>
         <ScrollView>
           <View style={styles.container}>
             <Text style={styles.title}>Background</Text>
 
-            {QUESTIONS.map(question => {
+            <ListView
+              contentContainerStyle={styles.listContainer}
+              dataSource={this.state.dataSource}
+              renderRow={this._renderRow}
+            />
+
+            {/* {QUESTIONS.map(question => {
               question.handleInput = this._handleInput;
               question.inputs = this.state.inputs[question.id];
               return (
@@ -120,12 +136,12 @@ export default class BackgroundScreen extends Component {
                   </TouchableHighlight>
                   <Collapsible collapsed={this.state.activeQuestion !== question.id} align="center">
                     <View style={styles.outerQuestionContainer}>
-                      <QuestionComponent {...question} />
+                      <Question {...question} />
                     </View>
                   </Collapsible>
                 </View>
               )
-            })}
+            })} */}
 
           </View>
         </ScrollView>
@@ -136,3 +152,11 @@ export default class BackgroundScreen extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+
+  }
+}
+
+export default connect(mapStateToProps)(BackgroundScreen)

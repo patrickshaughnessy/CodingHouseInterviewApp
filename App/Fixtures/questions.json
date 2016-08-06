@@ -1,0 +1,73 @@
+[
+  {
+    "id": 1,
+    "category": "background",
+    "depth": 1,
+    "levels": {
+      "1": {
+        "type": "INPUT_BOX",
+        "question": "Where are you from?",
+        "placeholder": "United States"
+      }
+    }
+  },
+  {
+    "_id": 2,
+    "category": "background",
+    "depth": 3,
+    "levels": {
+      "1": {
+        "type": "RADIO",
+        "question": "Are you a US citizen?",
+        "options": ["Yes", "No"],
+        "default": "Yes"
+      },
+      "2": {
+        "type": "RADIO",
+        "question": "Do you have a work permit?",
+        "options": ["Yes", "No"],
+        "default": "Yes"
+      },
+      "3": {
+        "type": "INPUT_BOX",
+        "question": "The cost of the bootcamp is $14K, are you aware of that?",
+        "placeholder": ""
+      }
+    },
+  },
+  {
+    "id": 3,
+    "category": "background",
+    "depth": 1,
+    "levels": {
+      "1": {
+        "type": "INPUT_BOX",
+        "question": "Where did you go to school",
+        "placeholder": "",
+      }
+    }
+  },
+  {
+    "id": 4,
+    "category": "background",
+    "depth": 3,
+    "levels": {
+      "1": {
+        "type": "INPUT_BOX",
+        "question": "What was your major?",
+        "placeholder": "",
+      },
+      "2": {
+        "type": "RADIO",
+        "question": "Did you graduate?",
+        "options": ["Yes", "No"],
+        "default": "Yes"
+      },
+      "3": {
+        "type": "INPUT_BOX",
+        "question": "With what degree?",
+        "placeholder": ""
+      }
+    }
+  }
+]
