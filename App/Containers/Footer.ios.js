@@ -7,6 +7,7 @@ import {
 import { connect } from 'react-redux'
 import Actions from '../Actions/Creators'
 import styles from './Styles/FooterStyle'
+const moment = require('moment')
 
 class Footer extends React.Component {
 
@@ -22,6 +23,13 @@ class Footer extends React.Component {
   // }
   constructor(props) {
     super(props)
+  }
+
+  _displayTime = (t) => {
+    let time = moment.duration(t, 'seconds')._data
+    let seconds = time.seconds < 10 ? `0${time.seconds}` : time.seconds
+    let minutes = time.minutes < 10 ? `0${time.minutes}` : time.minutes
+    return `${minutes} : ${seconds}`
   }
 
   _handleControlChange = (e) => {
@@ -55,11 +63,20 @@ class Footer extends React.Component {
 
   render () {
     let { selectedIndex, intervieweeTime, interviewerTime } = this.props
+    let controlOverride;
+    switch (selectedIndex) {
+      case 0:
+        controlOverride = styles.intervieweeTimeControl;
+        break;
+      case 2:
+        controlOverride = styles.interviewerTimeControl;
+        break;
+    }
     return (
       <View style={styles.container}>
         <View style={styles.controlsContainer}>
           <SegmentedControlIOS
-            style={styles.segmentedControl}
+            style={[styles.segmentedControl, controlOverride]}
             values={['Interviewee', 'PAUSE', 'Interviewer']}
             selectedIndex={selectedIndex}
             onChange={this._handleControlChange}
@@ -68,11 +85,11 @@ class Footer extends React.Component {
         <View style={styles.timeContainer}>
           <View style={styles.time} >
             <Text style={styles.textTitle}>Interviewee</Text>
-            <Text style={styles.textCount}>{intervieweeTime}</Text>
+            <Text style={styles.textCount}>{this._displayTime(intervieweeTime)}</Text>
           </View>
           <View style={styles.time}>
             <Text style={styles.textTitle}>Interviewer</Text>
-            <Text style={styles.textCount}>{interviewerTime}</Text>
+            <Text style={styles.textCount}>{this._displayTime(interviewerTime)}</Text>
           </View>
         </View>
       </View>

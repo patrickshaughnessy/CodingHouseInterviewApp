@@ -29,10 +29,10 @@ const updateTimeControl = (index) => ({ type: Types.UPDATE_TIME_CONTROL, index }
 const startIntervieweeTime = (timerID) => ({ type: Types.START_INTERVIEWEE_TIME, timerID })
 const startInterviewerTime = (timerID) => ({ type: Types.START_INTERVIEWER_TIME, timerID })
 
-const stopTimer = () => ({ type: Types.STOP_TIMER })
-
 const incrementIntervieweeTime = () => ({ type: Types.INCREMENT_INTERVIEWEE_TIME })
 const incrementInterviewerTime = () => ({ type: Types.INCREMENT_INTERVIEWER_TIME })
+
+const stopTimer = () => ({ type: Types.STOP_TIMER })
 
 /**
  Makes available all the action creators we've created.
@@ -54,7 +54,7 @@ export default {
   updateTimeControl,
   startIntervieweeTime,
   startInterviewerTime,
-  stopTimer,
   incrementIntervieweeTime,
-  incrementInterviewerTime
+  incrementInterviewerTime,
+  stopTimer,
 }

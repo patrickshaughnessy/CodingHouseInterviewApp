@@ -7,14 +7,22 @@ export default StyleSheet.create({
     // paddingTop: Metrics.titlePadding,
     // flexDirection: 'row',
     height: Metrics.footerHeight,
-    backgroundColor: 'black',
+    backgroundColor: '#4E3B2A',
     // borderColor: 'red',
     // borderWidth: 4
   },
   controlsContainer: {
     flex: 1,
+    backgroundColor: Colors.red,
     // borderColor: 'blue',
     // borderWidth: 1
+  },
+  intervieweeTimeControl: {
+    // backgroundColor: '#92982E'
+    backgroundColor: Colors.green
+  },
+  interviewerTimeControl: {
+    backgroundColor: Colors.green
   },
   segmentedControl: {
     flex: 1,
