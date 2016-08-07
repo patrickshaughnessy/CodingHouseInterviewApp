@@ -3,12 +3,25 @@ import { Colors, Metrics, ApplicationStyles } from '../../Themes/'
 
 export default StyleSheet.create({
   container: {
-    flex: 1,
-    flexDirection: 'row',
-    paddingTop: Metrics.titlePadding,
-    justifyContent: 'center'
+    paddingTop: 5,
+    paddingBottom: 5,
+    // borderColor: 'black',
+    // borderWidth: 1,
+  },
+  question: {
+    padding: 2,
+    textAlign: 'center',
+    fontSize: 16,
   },
   radioContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    padding: 5
+    // borderColor: 'red',
+    // borderWidth: 4,
+  },
+  radioContainerInner: {
     flex: 1,
     alignItems: 'center'
   },
@@ -27,7 +40,9 @@ export default StyleSheet.create({
     borderRadius: 6,
     backgroundColor: '#000',
   },
-  radioText: {
-    flex: 1
-  }
+  optionText: {
+    textAlign: 'center',
+    padding: 2,
+    fontSize: 14,
+  },
 })

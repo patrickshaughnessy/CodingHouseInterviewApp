@@ -11,6 +11,7 @@ import { Images } from '../Themes'
 import { connect } from 'react-redux'
 import RoundedButton from '../Components/RoundedButton'
 import { Actions as NavigationActions } from 'react-native-router-flux'
+import Actions from '../Actions/Creators'
 
 // styles
 import styles from './Styles/IntervieweeNameScreenStyle'
@@ -80,9 +81,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-
   return {
-    background: NavigationActions.background,
+    background: NavigationActions.background
   }
 }
 

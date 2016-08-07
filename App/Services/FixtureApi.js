@@ -8,5 +8,14 @@ export default {
       ok: true,
       data: city.toLowerCase() === 'boise' ? boiseData : torontoData
     }
+  },
+
+  getQuestions: () => {
+    const questionData = require('../Fixtures/questions.json')
+
+    return {
+      ok: true,
+      data: questionData
+    }
   }
 }

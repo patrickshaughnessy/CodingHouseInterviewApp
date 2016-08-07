@@ -6,9 +6,9 @@ import R from 'ramda'
 // process STARTUP actions
 export function * watchStartup () {
   yield take(Types.STARTUP)
-  const temp = yield select((state) => state.weather.temperature)
-  // only fetch new temps when we don't have one yet
-  if (!R.is(Number, temp)) {
-    yield put(Actions.requestTemperature('San Francisco'))
+  const questions = yield select((state) => state.questions.background)
+  // only fetch new questions when we don't have any yet
+  if (R.isNil(questions)) {
+    yield put(Actions.requestQuestions())
   }
 }

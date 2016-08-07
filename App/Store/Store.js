@@ -13,7 +13,8 @@ import ReduxPersist from '../Config/ReduxPersist'
 // the logger master switch
 const USE_LOGGING = Config.reduxLogging
 // silence these saga-based messages
-const SAGA_LOGGING_BLACKLIST = ['EFFECT_TRIGGERED', 'EFFECT_RESOLVED', 'EFFECT_REJECTED', 'persist/REHYDRATE']
+// const SAGA_LOGGING_BLACKLIST = ['EFFECT_TRIGGERED', 'EFFECT_RESOLVED', 'EFFECT_REJECTED', 'persist/REHYDRATE']
+const SAGA_LOGGING_BLACKLIST = []
 // creat the logger
 const logger = createLogger({
   predicate: (getState, { type }) => USE_LOGGING && R.not(R.contains(type, SAGA_LOGGING_BLACKLIST))

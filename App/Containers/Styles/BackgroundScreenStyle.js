@@ -6,10 +6,17 @@ export default StyleSheet.create({
     flex: 1,
     marginTop: Metrics.navBarHeight
   },
+  scrollView: {
+    backgroundColor: Colors.background,
+    // borderColor: 'red',
+    // borderWidth: 4,
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
     backgroundColor: Colors.background,
+    // borderColor: 'yellow',
+    // borderWidth: 4,
   },
   title: {
     textAlign: 'center',
@@ -19,43 +26,6 @@ export default StyleSheet.create({
     marginTop:20,
     color: Colors.snow,
     textDecorationLine: 'underline'
-  },
-  header: {
-    backgroundColor: '#F5FCFF',
-    padding: 10,
-  },
-  headerText: {
-    textAlign: 'center',
-    fontSize: 16,
-    fontWeight: '500',
-  },
-  content: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: '#fff',
-  },
-  active: {
-    backgroundColor: 'rgba(255,255,255,1)',
-  },
-  inactive: {
-    backgroundColor: 'rgba(245,252,255,1)',
-  },
-  selectors: {
-    marginBottom: 10,
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
-  selector: {
-    backgroundColor: '#F5FCFF',
-    padding: 10,
-  },
-  activeSelector: {
-    fontWeight: 'bold',
-  },
-  selectTitle: {
-    fontSize: 14,
-    fontWeight: '500',
-    padding: 10,
   },
   footer: {
     flex:1,
@@ -70,5 +40,13 @@ export default StyleSheet.create({
   outerQuestionContainer: {
     flex:1,
     backgroundColor: 'white'
+  },
+  questionTitle: {
+    color: 'white'
+  },
+  footer: {
+    backgroundColor: Colors.nav
+    // borderColor: 'yellow',
+    // borderWidth: 4,
   }
 })
