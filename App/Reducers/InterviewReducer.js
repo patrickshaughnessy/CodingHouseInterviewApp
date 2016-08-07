@@ -8,7 +8,7 @@ export const INITIAL_STATE = Immutable({
 })
 
 const updateData = (state, action) =>
-  state.merge({...action.payload}, {deep: true})
+  state.merge({...action.payload}, {deep: true}) // need deep:true for multiple questions in state
 
 const updateName = (state, action) =>
   state.merge({

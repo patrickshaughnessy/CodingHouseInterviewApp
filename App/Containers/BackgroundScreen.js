@@ -18,35 +18,53 @@ import Question from '../Components/Question'
 
 import styles from './Styles/BackgroundScreenStyle'
 
+import Immutable from 'seamless-immutable'
+
 class BackgroundScreen extends Component {
   constructor(props) {
     super(props)
 
     const { questions, answers } = this.props
-    console.log(answers)
+
     const rowHasChanged = (r1, r2) => r1 !== r2
 
     const ds = new ListView.DataSource({rowHasChanged})
 
+    const a = answers.asMutable({deep: true})
+    const qX = questions.asMutable({deep: true})
+    const qa = qX.map(q => {
+      q.answers = a[q._id] ? a[q._id] : []
+      return q
+    })
+    console.log('initial load', qa);
+
+    // console.log(qa)
     this.state = {
-      dataSource: ds.cloneWithRows(questions)
+      dataSource: ds.cloneWithRows(qa)
     }
   }
 
   componentWillReceiveProps (newProps) {
     if (newProps) {
-      
+      const { questions, answers } = newProps
+      const a = answers.asMutable({deep: true})
+      const qX = questions.asMutable({deep: true})
+      const qa = qX.map(q => {
+        q.answers = a[q._id] ? a[q._id] : []
+        return q
+      })
+      console.log('will receive props', qa);
       this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(newProps.questions)
+        dataSource: this.state.dataSource.cloneWithRows(qa)
       })
     }
   }
 
   _renderRow = (rowData) => {
-    let { updateInterviewData, answers } = this.props
+    let { updateInterviewData } = this.props
     return (
       <View style={styles.row}>
-        <Question {...rowData} answers={answers[rowData._id] || []} updateInterviewData={updateInterviewData} />
+        <Question {...rowData} updateInterviewData={updateInterviewData} />
       </View>
     )
   }

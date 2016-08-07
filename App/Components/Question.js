@@ -47,13 +47,11 @@ export default class Question extends React.Component {
     let payload = {};
     payload[category] = {};
     payload[category][_id] = answers
-
     updateInterviewData(payload)
   }
 
   _renderContent () {
     let { answers } = this.props
-    console.log(answers);
     return this.props.levels.map((level, i) => {
       switch (level.type) {
         case 'INPUT_BOX':
