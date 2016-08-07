@@ -15,6 +15,7 @@ import Collapsible from 'react-native-collapsible';
 import Accordion from 'react-native-collapsible/Accordion';
 
 import Question from '../Components/Question'
+import Footer from './Footer'
 
 import styles from './Styles/BackgroundScreenStyle'
 
@@ -36,9 +37,7 @@ class BackgroundScreen extends Component {
       q.answers = a[q._id] ? a[q._id] : []
       return q
     })
-    console.log('initial load', qa);
 
-    // console.log(qa)
     this.state = {
       dataSource: ds.cloneWithRows(qa)
     }
@@ -85,9 +84,7 @@ class BackgroundScreen extends Component {
 
           </View>
         </ScrollView>
-        <View >
-          <Text style={styles.footer}>Footer</Text>
-        </View>
+        <Footer />
       </View>
     );
   }
@@ -96,13 +93,14 @@ class BackgroundScreen extends Component {
 const mapStateToProps = (state) => {
   return {
     questions: state.questions.background,
-    answers: state.interview.background
+    answers: state.interview.background,
+
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateInterviewData: (payload) => dispatch(Actions.updateInterviewData(payload)) // section, questionID, level, data
+    updateInterviewData: (payload) => dispatch(Actions.updateInterviewData(payload))
   }
 }
 

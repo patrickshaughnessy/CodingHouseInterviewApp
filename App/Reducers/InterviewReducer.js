@@ -4,6 +4,10 @@ import { createReducer } from 'reduxsauce'
 
 export const INITIAL_STATE = Immutable({
   name: null,
+  intervieweeTime: 0,
+  interviewerTime: 0,
+  timeControl: 1,
+  timerID: null,
   background: {},
 })
 
@@ -15,28 +19,47 @@ const updateName = (state, action) =>
     name: action.name
   })
 
-// // receive questions
-// const receive = (state, action) =>
-//   state.merge({
-//     fetching: false,
-//     error: null,
-//     ...action.questions
-//   })
-//
-// // questions failure
-// const failure = (state, action) =>
-//   state.merge({
-//     fetching: false,
-//     error: true,
-//     questions: null
-//   })
+const updateTimeControl = (state, action) =>
+  state.merge({
+    timeControl: action.index
+  })
+
+const stopTimer = (state, action) =>
+  state.merge({
+    timerID: null
+  })
+
+const startIntervieweeTime = (state, action) =>
+  state.merge({
+    timerID: action.timerID
+  })
+
+const incrementIntervieweeTime = (state, action) =>
+  state.merge({
+    intervieweeTime: state.intervieweeTime + 1
+  })
+
+const startInterviewerTime = (state, action) =>
+  state.merge({
+    timerID: action.timerID
+  })
+
+const incrementInterviewerTime = (state, action) =>
+  state.merge({
+    interviewerTime: state.interviewerTime + 1
+  })
 
 // map our types to our handlers
 const ACTION_HANDLERS = {
   [Types.UPDATE_INTERVIEW_DATA]: updateData,
   [Types.UPDATE_INTERVIEW_NAME]: updateName,
-  // [Types.QUESTIONS_RECEIVE]: receive,
-  // [Types.QUESTIONS_FAILURE]: failure
+  [Types.UPDATE_TIME_CONTROL]: updateTimeControl,
+  [Types.STOP_TIMER]: stopTimer,
+  [Types.START_INTERVIEWEE_TIME]: startIntervieweeTime,
+  [Types.START_INTERVIEWER_TIME]: startInterviewerTime,
+  [Types.INCREMENT_INTERVIEWEE_TIME]: incrementIntervieweeTime,
+  [Types.INCREMENT_INTERVIEWER_TIME]: incrementInterviewerTime,
+
 }
 
 export default createReducer(INITIAL_STATE, ACTION_HANDLERS)

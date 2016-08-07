@@ -4,7 +4,8 @@ import { Colors, Metrics, ApplicationStyles } from '../../Themes/'
 export default StyleSheet.create({
   outerContainer: {
     flex: 1,
-    marginTop: Metrics.navBarHeight
+    marginTop: Metrics.navBarHeight,
+    // marginBottom: Metrics.footerHeight
   },
   scrollView: {
     backgroundColor: Colors.background,
@@ -39,10 +40,5 @@ export default StyleSheet.create({
   },
   questionTitle: {
     color: 'white'
-  },
-  footer: {
-    backgroundColor: Colors.nav
-    // borderColor: 'yellow',
-    // borderWidth: 4,
   }
 })

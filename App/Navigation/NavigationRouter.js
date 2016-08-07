@@ -36,7 +36,7 @@ class NavigationRouter extends Component {
             <Scene key='personality' component={PersonalityScreen} title='Personality' />
             <Scene key='technical' component={TechnicalScreen} title='Technical' />
             <Scene key='inferred' component={InferredScreen} title='Inferred' />
-            <Scene key='usageExamples' component={UsageExamplesScreen} title='Usage' rightTitle='Example' onRight={() => window.alert('Example Pressed')} />
+            {/* <Scene key='usageExamples' component={UsageExamplesScreen} title='Usage' rightTitle='Example' onRight={() => window.alert('Example Pressed')} /> */}
             {/* <Scene key='login' component={LoginScreen} title='Login' hideNavBar />
             <Scene key='listviewExample' component={ListviewExample} title='Listview Example' />
             <Scene key='listviewGridExample' component={ListviewGridExample} title='Listview Grid' />
