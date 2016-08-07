@@ -21,6 +21,9 @@ const requestQuestions = () => ({ type: Types.QUESTIONS_REQUEST })
 const receiveQuestions = (questions) => ({ type: Types.QUESTIONS_RECEIVE, questions })
 const receiveQuestionsFailure = () => ({ type: Types.QUESTIONS_FAILURE })
 
+const updateInterviewData = (payload) => ({ type: Types.UPDATE_INTERVIEW_DATA, payload })
+const updateInterviewName = (name) => ({ type: Types.UPDATE_INTERVIEW_NAME, name })
+
 /**
  Makes available all the action creators we've created.
  */
@@ -35,5 +38,7 @@ export default {
   receiveTemperatureFailure,
   requestQuestions,
   receiveQuestions,
-  receiveQuestionsFailure
+  receiveQuestionsFailure,
+  updateInterviewData,
+  updateInterviewName
 }

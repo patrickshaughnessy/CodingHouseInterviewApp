@@ -27,16 +27,12 @@ export default StyleSheet.create({
     color: Colors.snow,
     textDecorationLine: 'underline'
   },
-  footer: {
-    flex:1,
-    backgroundColor:'red'
-  },
-  contentInput: {
-    height: 100,
-    borderColor: 'gray',
-    borderWidth: 1,
-    padding: 10
-  },
+  // contentInput: {
+  //   height: 100,
+  //   borderColor: 'gray',
+  //   borderWidth: 1,
+  //   padding: 10
+  // },
   outerQuestionContainer: {
     flex:1,
     backgroundColor: 'white'

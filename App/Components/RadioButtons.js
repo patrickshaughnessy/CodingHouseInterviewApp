@@ -17,6 +17,7 @@ export default class RadioButtons extends React.Component {
 
   render () {
     let { options, question, position } = this.props
+    // console.log(this.props)
 
     if (position === 0) {
       return (

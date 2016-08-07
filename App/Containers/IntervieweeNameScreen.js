@@ -22,23 +22,20 @@ class IntervieweeNameScreen extends React.Component {
     background: PropTypes.func,
   }
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: 'Bob Jones'
-    }
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
   handleChangeName = (text) => {
     this.setState({ name: text })
   }
 
   startInterview = () => {
-    this.props.background({ title: this.state.name });
+    this.props.background({ title: this.props.name });
   }
 
   render () {
-    let { name } = this.state
+    let { updateInterviewName, name } = this.props
     return (
       <View style={styles.mainContainer}>
         <ScrollView style={styles.container}>
@@ -58,7 +55,7 @@ class IntervieweeNameScreen extends React.Component {
                 style={styles.textInput}
                 keyboardType='default'
                 returnKeyType='go'
-                onChangeText={this.handleChangeName}
+                onChangeText={updateInterviewName}
                 underlineColorAndroid='transparent'
                 onSubmitEditing={this.startInterview}
                 placeholder='Bob Jones' />
@@ -77,12 +74,14 @@ class IntervieweeNameScreen extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
+    name: state.interview.name
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    background: NavigationActions.background
+    background: NavigationActions.background,
+    updateInterviewName: (name) => dispatch(Actions.updateInterviewName(name))
   }
 }
 

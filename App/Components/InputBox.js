@@ -20,13 +20,14 @@ export default class InputBox extends React.Component {
   // }
 
   render () {
-    let { question, position, placeholder } = this.props
+    let { question, position, placeholder, onChange } = this.props
 
     if (position === 0) {
       return (
         <View style={styles.container}>
           <TextInput style={styles.textInput}
             placeholder={placeholder}
+            onChangeText={(text) => onChange(text, position)}
           />
         </View>
       )
@@ -36,6 +37,7 @@ export default class InputBox extends React.Component {
           <Text style={styles.text}>{question}</Text>
           <TextInput style={styles.textInput}
             placeholder={placeholder}
+            onChangeText={(text) => onChange(text, position)}
           />
         </View>
       )

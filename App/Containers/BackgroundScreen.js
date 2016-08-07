@@ -7,8 +7,8 @@ import {
   TouchableHighlight,
   ListView
 } from 'react-native';
-
 import { connect } from 'react-redux';
+import Actions from '../Actions/Creators';
 
 import * as Animatable from 'react-native-animatable';
 import Collapsible from 'react-native-collapsible';
@@ -33,26 +33,13 @@ class BackgroundScreen extends Component {
     }
   }
 
-  _renderRow (rowData) {
-    let { question } = rowData.levels[0]
+  _renderRow = (rowData) => {
+    let { updateInterviewData } = this.props
     return (
       <View style={styles.row}>
-        {/* <Text style={styles.questionTitle}>{ question }</Text> */}
-        <Question {...rowData} />
+        <Question {...rowData} updateInterviewData={updateInterviewData} section={'background'} />
       </View>
     )
-  }
-
-  _toggleExpanded = (question) => {
-    this.setState({ activeQuestion: question.id === this.state.activeQuestion ? '' : question.id });
-  }
-
-  _handleInput = (question, input) => {
-    console.log('here', question, input)
-    let { id, currentLevel } = question;
-    let inputs = Object.assign({}, this.state.inputs)
-    inputs[id][currentLevel] = input;
-    this.setState({ inputs: inputs})
   }
 
   render() {
@@ -60,6 +47,7 @@ class BackgroundScreen extends Component {
       <View style={styles.outerContainer}>
         <ScrollView style={styles.scrollView}>
           <View style={styles.container}>
+
             <Text style={styles.title}>Background</Text>
 
             <ListView
@@ -80,8 +68,15 @@ class BackgroundScreen extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    questions: state.questions.background
+    questions: state.questions.background,
+    interview: state.interview.background
   }
 }
 
-export default connect(mapStateToProps)(BackgroundScreen)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateInterviewData: (payload) => dispatch(Actions.updateInterviewData(payload)) // section, questionID, level, data
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BackgroundScreen)

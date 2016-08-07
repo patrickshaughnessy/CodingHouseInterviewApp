@@ -39,13 +39,22 @@ export default class Question extends React.Component {
     this.setState({collapsed: !this.state.collapsed})
   }
 
+  _onUpdateInterviewData = (userInput, level) => {
+    let { section, _id } = this.props
+    let payload = {};
+    console.log('updating state', userInput)
+    // payload[section] = {};
+    // payload[section]
+    // updateInterviewData(payload)
+  }
+
   _renderContent () {
     return this.props.levels.map((level, i) => {
       switch (level.type) {
         case 'INPUT_BOX':
-          return <InputBox position={i} {...level} />
+          return <InputBox position={i} onChange={this._onUpdateInterviewData} {...level} />
         case 'RADIO':
-          return <RadioButtons position={i} {...level} />
+          return <RadioButtons position={i} onChange={this._onUpdateInterviewData} {...level} />
       }
     })
   }
@@ -63,30 +72,8 @@ export default class Question extends React.Component {
         <Collapsible collapsed={this.state.collapsed} align="center">
           <View style={styles.question}>
             {this._renderContent()}
-            {/* <Question {...this.props} /> */}
           </View>
         </Collapsible>
-
-        {/* {this._renderTitle()} */}
-        {/* {this._renderLevels()} */}
-        {/* {levels.map(question => {
-          question.handleInput = this._handleInput;
-          question.inputs = this.state.inputs[question.id];
-          return (
-            <View key={question.id}>
-              <TouchableHighlight onPress={this._toggleExpanded.bind(this, question)}>
-                <View style={styles.header}>
-                  <Text style={styles.headerText}>{question.question}</Text>
-                </View>
-              </TouchableHighlight>
-              <Collapsible collapsed={this.state.activeQuestion !== question.id} align="center">
-                <View style={styles.outerQuestionContainer}>
-                  <Question {...question} />
-                </View>
-              </Collapsible>
-            </View>
-          )
-        })} */}
       </View>
     )
   }
