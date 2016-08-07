@@ -16,19 +16,17 @@ export default class RadioButtons extends React.Component {
   // }
 
   render () {
-    let { options, question, position } = this.props
-    // console.log(this.props)
-
+    let { options, question, position, onChange, answer } = this.props
     if (position === 0) {
       return (
         <View style={styles.container}>
           <View style={styles.radioContainer}>
             {options.map((option, i) => {
               return(
-                <View style={styles.radioContainerInner} key={option}>
-                  <TouchableOpacity onPress={() => handleInput(this.props, option)}>
+                <View style={styles.radioContainerInner} key={i}>
+                  <TouchableOpacity onPress={() => onChange(position, option)}>
                     <View style={styles.radioOuter}>
-                    {/* { inputs[currentLevel] === option ? <View style={styles.radioInner}/> : null } */}
+                      { answer == option ? <View style={styles.radioInner}/> : null }
                     </View>
                   </TouchableOpacity>
                   <Text style={styles.optionText}>{option}</Text>
@@ -45,10 +43,10 @@ export default class RadioButtons extends React.Component {
           <View style={styles.radioContainer}>
           {options.map((option, i) => {
             return(
-              <View style={styles.radioContainerInner} key={option}>
-                <TouchableOpacity onPress={() => handleInput(this.props, option)}>
+              <View style={styles.radioContainerInner} key={i}>
+                <TouchableOpacity onPress={() => onChange(position, option)}>
                   <View style={styles.radioOuter}>
-
+                    { answer === option ? <View style={styles.radioInner}/> : null }
                   </View>
                 </TouchableOpacity>
                 <Text style={styles.optionText}>{option}</Text>

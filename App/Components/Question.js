@@ -39,22 +39,27 @@ export default class Question extends React.Component {
     this.setState({collapsed: !this.state.collapsed})
   }
 
-  _onUpdateInterviewData = (userInput, level) => {
-    let { section, _id } = this.props
+  _onUpdateInterviewData = (level, userInput) => {
+    let { category, _id, answers, updateInterviewData } = this.props
+
+    answers[level] = userInput;
+
     let payload = {};
-    console.log('updating state', userInput)
-    // payload[section] = {};
-    // payload[section]
-    // updateInterviewData(payload)
+    payload[category] = {};
+    payload[category][_id] = answers
+
+    updateInterviewData(payload)
   }
 
   _renderContent () {
+    let { answers } = this.props
+    console.log(answers);
     return this.props.levels.map((level, i) => {
       switch (level.type) {
         case 'INPUT_BOX':
-          return <InputBox position={i} onChange={this._onUpdateInterviewData} {...level} />
+          return <InputBox position={i} answer={answers[i]} onChange={this._onUpdateInterviewData} {...level} />
         case 'RADIO':
-          return <RadioButtons position={i} onChange={this._onUpdateInterviewData} {...level} />
+          return <RadioButtons position={i} answer={answers[i]} onChange={this._onUpdateInterviewData} {...level} />
       }
     })
   }

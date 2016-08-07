@@ -22,8 +22,8 @@ class BackgroundScreen extends Component {
   constructor(props) {
     super(props)
 
-    const { questions } = this.props
-
+    const { questions, answers } = this.props
+    console.log(answers)
     const rowHasChanged = (r1, r2) => r1 !== r2
 
     const ds = new ListView.DataSource({rowHasChanged})
@@ -33,11 +33,20 @@ class BackgroundScreen extends Component {
     }
   }
 
+  componentWillReceiveProps (newProps) {
+    if (newProps) {
+      
+      this.setState({
+        dataSource: this.state.dataSource.cloneWithRows(newProps.questions)
+      })
+    }
+  }
+
   _renderRow = (rowData) => {
-    let { updateInterviewData } = this.props
+    let { updateInterviewData, answers } = this.props
     return (
       <View style={styles.row}>
-        <Question {...rowData} updateInterviewData={updateInterviewData} section={'background'} />
+        <Question {...rowData} answers={answers[rowData._id] || []} updateInterviewData={updateInterviewData} />
       </View>
     )
   }
@@ -69,7 +78,7 @@ class BackgroundScreen extends Component {
 const mapStateToProps = (state) => {
   return {
     questions: state.questions.background,
-    interview: state.interview.background
+    answers: state.interview.background
   }
 }
 

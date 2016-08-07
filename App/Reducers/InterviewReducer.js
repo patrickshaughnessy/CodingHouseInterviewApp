@@ -4,11 +4,11 @@ import { createReducer } from 'reduxsauce'
 
 export const INITIAL_STATE = Immutable({
   name: null,
-  background: null,
+  background: {},
 })
 
 const updateData = (state, action) =>
-  state.merge(action)
+  state.merge({...action.payload}, {deep: true})
 
 const updateName = (state, action) =>
   state.merge({
