@@ -1,24 +1,32 @@
 import { StyleSheet } from 'react-native'
 import { Colors, Metrics, ApplicationStyles } from '../../Themes/'
 
+export const android = {
+  tint: 'white',
+  paused: Colors.red,
+  running: Colors.green,
+  containerStyle: {
+    flex: 1,
+  },
+  optionContainerStyle: {
+    textAlign: 'center',
+    flex: 1,
+    justifyContent: 'center'
+  }
+}
+
 export default StyleSheet.create({
   container: {
-    // flex: 1,
-    // paddingTop: Metrics.titlePadding,
-    // flexDirection: 'row',
     height: Metrics.footerHeight,
     backgroundColor: '#4E3B2A',
-    // borderColor: 'red',
-    // borderWidth: 4
+    borderTopColor: 'black',
+    borderTopWidth: 5
   },
   controlsContainer: {
     flex: 1,
     backgroundColor: Colors.red,
-    // borderColor: 'blue',
-    // borderWidth: 1
   },
   intervieweeTimeControl: {
-    // backgroundColor: '#92982E'
     backgroundColor: Colors.green
   },
   interviewerTimeControl: {

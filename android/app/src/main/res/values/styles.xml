@@ -3,6 +3,12 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
+        <!-- typical material style colors -->
+        <item name="colorPrimary">@color/kio_turquoise</item>
+        <item name="colorPrimaryDark">@color/kio_hot_pink</item>
+
+        <!-- sets cursor color -->
+        <item name="colorControlActivated">@android:color/black</item>
     </style>
 
 </resources>
