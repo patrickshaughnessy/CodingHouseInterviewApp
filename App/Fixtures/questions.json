@@ -83,6 +83,81 @@
           "placeholder": ""
         }
       ]
+    },
+    {
+      "_id": 5,
+      "order": 5,
+      "category": "background",
+      "depth": 4,
+      "levels": [
+        {
+          "type": "INPUT_BOX",
+          "question": "What is your plan after the bootcamp?",
+          "placeholder": ""
+        },
+        {
+          "type": "INPUT_BOX",
+          "question": "What would you do?",
+          "placeholder": ""
+        },
+        {
+          "type": "INPUT_BOX",
+          "question": "How would you do it?",
+          "placeholder": ""
+        },
+        {
+          "type": "INPUT_BOX",
+          "question": "Where would you live?",
+          "placeholder": ""
+        }
+      ]
+    },
+    {
+      "_id": 6,
+      "order": 6,
+      "category": "background",
+      "levels": [
+        {
+          "type": "CHECKBOX",
+          "question": "Do you have a family?",
+          "label": "Married",
+          "defaultValue": false
+        },
+        {
+          "type": "SLIDER",
+          "question": "Are they ok with the plan?",
+          "range": 10,
+          "defaultValue": 5
+        },
+        {
+          "type": "CHECKBOX",
+          "question": "Do you have children?",
+          "label": "Kids",
+          "defaultValue": false
+        },
+        {
+          "type": "INPUT_BOX",
+          "question": "What is your plan for them while in the camp? Who will take care of them? Who will support your spouse (if applicable)?",
+          "placeholder": ""
+        },
+        {
+          "type": "CHECKBOX",
+          "question": "What about parents?",
+          "label": "Parents",
+          "defaultValue": false
+        },
+        {
+          "type": "INPUT_BOX",
+          "question": "Where do they live?",
+          "placeholder": ""
+        },
+        {
+          "type": "SLIDER",
+          "question": "Are they ok with the plan?",
+          "range": 10,
+          "defaultValue": 5
+        }
+      ]
     }
   ]
 }

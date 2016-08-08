@@ -5,14 +5,18 @@ import {
   TextInput,
   TouchableOpacity,
   TouchableHighlight,
+  ListView
 } from 'react-native'
 import styles from './Styles/QuestionStyle'
+import { Metrics } from '../Themes'
 
 import * as Animatable from 'react-native-animatable';
 import Collapsible from 'react-native-collapsible';
 
 import RadioButtons from './RadioButtons'
 import InputBox from './InputBox'
+import Slider from './Slider'
+import Checkbox from './Checkbox'
 
 export default class Question extends React.Component {
   // // Prop type warnings
@@ -35,7 +39,7 @@ export default class Question extends React.Component {
 
   }
 
-  _toggleCollapsed = () => {
+  _toggleCollapsed = (e) => {
     this.setState({collapsed: !this.state.collapsed})
   }
 
@@ -58,6 +62,10 @@ export default class Question extends React.Component {
           return <InputBox position={i} answer={answers[i]} onChange={this._onUpdateInterviewData} {...level} />
         case 'RADIO':
           return <RadioButtons position={i} answer={answers[i]} onChange={this._onUpdateInterviewData} {...level} />
+        case 'SLIDER':
+          return <Slider position={i} answer={answers[i]} onChange={this._onUpdateInterviewData} {...level} />
+        case 'CHECKBOX':
+          return <Checkbox position={i} answer={answers[i]} onChange={this._onUpdateInterviewData} {...level} />
       }
     })
   }

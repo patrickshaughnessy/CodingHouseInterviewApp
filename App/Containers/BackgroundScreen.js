@@ -41,6 +41,8 @@ class BackgroundScreen extends Component {
     this.state = {
       dataSource: ds.cloneWithRows(qa)
     }
+
+    this._scrollView
   }
 
   componentWillReceiveProps (newProps) {
@@ -63,7 +65,10 @@ class BackgroundScreen extends Component {
     let { updateInterviewData } = this.props
     return (
       <View style={styles.row}>
-        <Question {...rowData} updateInterviewData={updateInterviewData} />
+        <Question
+          {...rowData}
+          updateInterviewData={updateInterviewData}
+        />
       </View>
     )
   }
