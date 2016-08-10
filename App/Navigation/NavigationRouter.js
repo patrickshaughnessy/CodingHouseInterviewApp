@@ -11,9 +11,8 @@ import BackgroundScreen from '../Containers/BackgroundScreen'
 import PersonalityScreen from '../Containers/PersonalityScreen'
 import TechnicalScreen from '../Containers/TechnicalScreen'
 import InferredScreen from '../Containers/InferredScreen'
-// import AllComponentsScreen from '../Containers/AllComponentsScreen'
-import UsageExamplesScreen from '../Containers/UsageExamplesScreen'
-// import LoginScreen from '../Containers/LoginScreen'
+import LoginScreen from '../Containers/LoginScreen'
+// import UsageExamplesScreen from '../Containers/UsageExamplesScreen'
 // import ListviewExample from '../Containers/ListviewExample'
 // import ListviewGridExample from '../Containers/ListviewGridExample'
 // import MapviewExample from '../Containers/MapviewExample'
@@ -31,7 +30,8 @@ class NavigationRouter extends Component {
       <Router>
         <Scene key='drawer' component={NavigationDrawer}>
           <Scene key='drawerChildrenWrapper' navigationBarStyle={Styles.navBar} titleStyle={Styles.title} leftButtonIconStyle={Styles.leftButton} rightButtonTextStyle={Styles.rightButton}>
-            <Scene initial key='intervieweeNameScreen' component={IntervieweeNameScreen} title='Interview' renderLeftButton={NavItems.hamburgerButton} />
+            <Scene initial key='login' component={LoginScreen} hideNavBar />
+            <Scene key='intervieweeNameScreen' component={IntervieweeNameScreen} title='Interview' renderLeftButton={NavItems.hamburgerButton} />
             <Scene key='background' component={BackgroundScreen} title='Background' />
             <Scene key='personality' component={PersonalityScreen} title='Personality' />
             <Scene key='technical' component={TechnicalScreen} title='Technical' />

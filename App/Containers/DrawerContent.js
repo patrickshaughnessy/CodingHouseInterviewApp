@@ -11,9 +11,9 @@ class DrawerContent extends Component {
     this.context.drawer.toggle()
   }
 
-  handlePressComponents = () => {
+  handleBackground = () => {
     this.toggleDrawer()
-    NavigationActions.componentExamples()
+    NavigationActions.background({ title: this.props.name })
   }
 
   handlePressUsage = () => {
@@ -39,8 +39,8 @@ class DrawerContent extends Component {
   render () {
     return (
       <ScrollView style={styles.container}>
-        <Image source={Images.logo} style={styles.logo} />
-        <DrawerButton text='Component Examples' onPress={this.handlePressComponents} />
+        <Image source={Images.logo} style={styles.logo} resizeMode={'contain'} />
+        <DrawerButton text='Background' onPress={this.handleBackground} />
         <DrawerButton text='Usage Examples' onPress={this.handlePressUsage} />
         <DrawerButton text='API Testing' onPress={this.handlePressAPI} />
         <DrawerButton text='Themes' onPress={this.handlePressTheme} />

@@ -7,7 +7,7 @@ import InterviewReducer from './InterviewReducer'
 // glue all the reducers together into 1 root reducer
 export default combineReducers({
   login: LoginReducer,
-  weather: WeatherReducer,
+  // weather: WeatherReducer,
   questions: QuestionsReducer,
   interview: InterviewReducer
 })

@@ -22,14 +22,6 @@ class IntervieweeNameScreen extends React.Component {
     background: PropTypes.func,
   }
 
-  // constructor(props) {
-  //   super(props);
-  // }
-
-  handleChangeName = (text) => {
-    this.setState({ name: text })
-  }
-
   startInterview = () => {
     this.props.background({ title: this.props.name });
   }

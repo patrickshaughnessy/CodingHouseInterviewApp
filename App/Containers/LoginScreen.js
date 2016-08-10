@@ -8,35 +8,34 @@ import {
   Image,
   Keyboard,
   LayoutAnimation,
-  Alert
+  Alert,
+  ActivityIndicator
 } from 'react-native'
 import { connect } from 'react-redux'
-import Styles from './Styles/LoginScreenStyle'
+import styles from './Styles/LoginScreenStyle'
 import Actions from '../Actions/Creators'
 import {Images, Metrics} from '../Themes'
 import { Actions as NavigationActions } from 'react-native-router-flux'
-
-// I18n
-import I18n from '../I18n/I18n.js'
 
 class LoginScreen extends React.Component {
 
   constructor (props) {
     super(props)
     this.state = {
-      username: 'reactnative@infinite.red',
-      password: 'password',
+      email: '',
+      password: '',
       visibleHeight: Metrics.screenHeight,
       topLogo: { width: Metrics.screenWidth }
     }
-    this.isAttempting = false
+    this.isAttempting = false;
   }
 
   componentWillReceiveProps (newProps) {
+    console.log(newProps.attempting);
     this.forceUpdate()
     // Did the login attempt complete?
     if (this.isAttempting && !newProps.attempting) {
-      this.props.close()
+      this.isAttempting = false
     }
   }
 
@@ -72,46 +71,71 @@ class LoginScreen extends React.Component {
   }
 
   handlePressLogin = () => {
-    const { username, password } = this.state
-    this.isAttempting = true
+    const { email, password } = this.state
+    this.isAttempting = true;
     // attempt a login - a saga is listening to pick it up from here.
-    this.props.attemptLogin(username, password)
+    this.props.attemptLogin(email, password)
   }
 
   handleChangeUsername = (text) => {
-    this.setState({ username: text })
+    this.setState({ email: text })
   }
 
   handleChangePassword = (text) => {
     this.setState({ password: text })
   }
 
+  _renderLoginButton = () => {
+    if (this.isAttempting) {
+      return (
+        <View style={styles.loginButtonWrapper}>
+          <View style={styles.loginButton}>
+            <ActivityIndicator />
+          </View>
+        </View>
+      )
+    } else {
+      return (
+        <TouchableOpacity style={styles.loginButtonWrapper} onPress={this.handlePressLogin}>
+          <View style={styles.loginButton}>
+            <Text style={styles.loginText}>Sign In</Text>
+          </View>
+        </TouchableOpacity>
+      )
+    }
+  }
+
   render () {
-    const { username, password } = this.state
+    const { email, password } = this.state
     const { attempting } = this.props
     const editable = !attempting
-    const textInputStyle = editable ? Styles.textInput : Styles.textInputReadonly
+    const textInputStyle = editable ? styles.textInput : styles.textInputReadonly
     return (
-      <ScrollView contentContainerStyle={{justifyContent: 'center'}} style={[Styles.container, {height: this.state.visibleHeight}]}>
-        <Image source={Images.logo} style={[Styles.topLogo, this.state.topLogo]} />
-        <View style={Styles.form}>
-          <View style={Styles.row}>
-            <Text style={Styles.rowLabel}>{I18n.t('username')}</Text>
+      <ScrollView contentContainerStyle={{justifyContent: 'center'}} style={[styles.container, {height: this.state.visibleHeight}]}>
+        <Image source={Images.logo} style={[styles.topLogo, this.state.topLogo]} />
+        <View style={styles.form}>
+          <View style={styles.row}>
+            <Text style={styles.rowLabel}>Email</Text>
             <TextInput
-              ref='username'
+              ref='email'
               style={textInputStyle}
-              value={username}
+              value={email}
               editable={editable}
               keyboardType='default'
               returnKeyType='next'
               onChangeText={this.handleChangeUsername}
               underlineColorAndroid='transparent'
               onSubmitEditing={() => this.refs.password.focus()}
-              placeholder={I18n.t('username')} />
+              placeholder={'you@codinghouse.co'}
+              autoCapitalize='none'
+              autoCorrect='false'
+              autoFocus={true}
+
+            />
           </View>
 
-          <View style={Styles.row}>
-            <Text style={Styles.rowLabel}>{I18n.t('password')}</Text>
+          <View style={styles.row}>
+            <Text style={styles.rowLabel}>Password</Text>
             <TextInput
               ref='password'
               style={textInputStyle}
@@ -123,18 +147,17 @@ class LoginScreen extends React.Component {
               onChangeText={this.handleChangePassword}
               underlineColorAndroid='transparent'
               onSubmitEditing={this.handlePressLogin}
-              placeholder={I18n.t('password')} />
+              placeholder={'password'} />
           </View>
 
-          <View style={[Styles.loginRow]}>
-            <TouchableOpacity style={Styles.loginButtonWrapper} onPress={this.handlePressLogin}>
-              <View style={Styles.loginButton}>
-                <Text style={Styles.loginText}>{I18n.t('signIn')}</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity style={Styles.loginButtonWrapper} onPress={this.props.close}>
-              <View style={Styles.loginButton}>
-                <Text style={Styles.loginText}>{I18n.t('cancel')}</Text>
+          <View style={[styles.loginRow]}>
+            <TouchableOpacity style={styles.loginButtonWrapper} disabled={this.isAttempting} onPress={this.handlePressLogin}>
+              <View style={styles.loginButton}>
+                {
+                  this.isAttempting ?
+                  <ActivityIndicator animating={true} /> :
+                  <Text style={styles.loginText}>Sign In</Text>
+                }
               </View>
             </TouchableOpacity>
           </View>
@@ -161,8 +184,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    close: NavigationActions.pop,
-    attemptLogin: (username, password) => dispatch(Actions.attemptLogin(username, password))
+    // close: NavigationActions.pop,
+    attemptLogin: (email, password) => dispatch(Actions.attemptLogin(email, password))
   }
 }
 

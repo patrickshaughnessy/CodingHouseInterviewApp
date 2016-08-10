@@ -15,7 +15,7 @@ class NavigationDrawer extends Component {
   }
 
   render () {
-    const state = this.props.navigationState
+    const { navigationState: state, name } = this.props
     const children = state.children
     return (
       <Drawer
@@ -24,7 +24,7 @@ class NavigationDrawer extends Component {
         open={state.open}
         onOpen={() => NavigationActions.refresh({key: state.key, open: true})}
         onClose={() => NavigationActions.refresh({key: state.key, open: false})}
-        content={<DrawerContent />}
+        content={<DrawerContent name={name} />}
         styles={Styles}
         tapToClose
         openDrawerOffset={0.2}
@@ -42,6 +42,7 @@ class NavigationDrawer extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    name: state.interview.name
   }
 }
 

@@ -3,7 +3,7 @@ import Immutable from 'seamless-immutable'
 import { createReducer } from 'reduxsauce'
 
 export const INITIAL_STATE = Immutable({
-  username: null,
+  email: null,
   errorCode: null,
   attempting: false
 })
@@ -14,7 +14,7 @@ const attempt = (state, action) =>
 
 // successful logins
 const success = (state, action) =>
-  state.merge({ attempting: false, errorCode: null, username: action.username })
+  state.merge({ attempting: false, errorCode: null, email: action.email })
 
 // login failure
 const failure = (state, action) =>

@@ -3,23 +3,29 @@ import Types from '../Actions/Types'
 import Actions from '../Actions/Creators'
 
 // attempts to login
-export function * attemptLogin (username, password) {
-  if (password === '') {
-    // dispatch failure
-    yield put(Actions.loginFailure('WRONG'))
-  } else {
-    // dispatch successful logins
-    yield put(Actions.loginSuccess(username))
-  }
-}
+export default (api) => {
+  console.log(api)
+  function * worker (email, password) {
+    const response = yield call(api.login, email, password)
 
-// a daemonized version which waits for LOGIN_ATTEMPT signals
-export function * watchLoginAttempt () {
-  // daemonize
-  while (true) {
-    // wait for LOGIN_ATTEMPT actions to arrive
-    const { username, password } = yield take(Types.LOGIN_ATTEMPT)
-    // call attemptLogin to perform the actual work
-    yield call(attemptLogin, username, password)
+    if (response.ok) {
+      const { token, user } = response
+      yield put(Actions.loginSuccess({ token, user }))
+    } else {
+      const { message } = response.data
+      yield put(Actions.loginFailure({ message }))
+    }
+  }
+
+  function * watcher () {
+    while (true) {
+      const { email, password } = yield take(Types.LOGIN_ATTEMPT)
+      yield call(worker, email, password)
+    }
+  }
+
+  return {
+    watcher,
+    worker
   }
 }

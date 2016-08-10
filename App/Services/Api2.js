@@ -1,17 +1,25 @@
 // a library to wrap and simplify api calls
 import apisauce from 'apisauce'
 import Reactotron from 'reactotron'
-import DebugSettings from '../Config/DebugSettings'
-console.log(DebugSettings.baseURL)
+
 // our "constructor"
-const create = (baseURL = DebugSettings.baseURL) => {
+const create = (baseURL = 'http://openweathermap.org/data/2.1') => {
   // ------
   // STEP 1
   // ------
   //
   // Create and configure an apisauce-based api object.
   //
-  const api = apisauce.create({baseURL})
+  const api = apisauce.create({
+    // base URL is read from the "constructor"
+    baseURL,
+    // here are some default headers
+    headers: {
+      'Cache-Control': 'no-cache'
+    },
+    // 10 second timeout...
+    timeout: 10000
+  })
 
   // Wrap api's addMonitor to allow the calling code to attach
   // additional monitors in the future.
@@ -34,7 +42,7 @@ const create = (baseURL = DebugSettings.baseURL) => {
   // Since we can't hide from that, we embrace it by getting out of the
   // way at this level.
   //
-  const login = (email, password) => api.post('/auth', {email, password})
+  const getCity = (city) => api.get('/find/name', {q: city})
 
   // ------
   // STEP 3
@@ -43,24 +51,14 @@ const create = (baseURL = DebugSettings.baseURL) => {
   // Return back a collection of functions that we would consider our
   // interface.  Most of the time it'll be just the list of all the
   // methods in step 2.
-  const getQuestions = () => {
-    const questionData = require('../Fixtures/questions.json')
-
-    return {
-      ok: true,
-      data: questionData
-    }
-  }
-
-
+  //
   // Notice we're not returning back the `api` created in step 1?  That's
   // because it is scoped privately.  This is one way to create truly
   // private scoped goodies in JavaScript.
   //
   return {
     // a list of the API functions from step 2
-    login,
-    getQuestions,
+    getCity,
     // additional utilities
     addMonitor
   }

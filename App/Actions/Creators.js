@@ -1,7 +1,7 @@
 import Types from './Types'
 
-const attemptLogin = (username, password) =>
-  ({ type: Types.LOGIN_ATTEMPT, username, password })
+const attemptLogin = (email, password) =>
+  ({ type: Types.LOGIN_ATTEMPT, email, password })
 
 const loginSuccess = (username) =>
   ({ type: Types.LOGIN_SUCCESS, username })
