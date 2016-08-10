@@ -18,8 +18,10 @@ import styles from './Styles/IntervieweeNameScreenStyle'
 
 class IntervieweeNameScreen extends React.Component {
 
-  static propTypes = {
-    background: PropTypes.func,
+  componentWillMount() {
+    if (!this.props.user) {
+      this.props.login()
+    }
   }
 
   startInterview = () => {
@@ -64,14 +66,23 @@ class IntervieweeNameScreen extends React.Component {
   }
 }
 
+IntervieweeNameScreen.propTypes = {
+  background: PropTypes.func,
+  login: PropTypes.func,
+  name: PropTypes.string,
+  user: PropTypes.string
+}
+
 const mapStateToProps = (state) => {
   return {
-    name: state.interview.name
+    name: state.interview.name,
+    user: state.login.user
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    login: NavigationActions.login,
     background: NavigationActions.background,
     updateInterviewName: (name) => dispatch(Actions.updateInterviewName(name))
   }

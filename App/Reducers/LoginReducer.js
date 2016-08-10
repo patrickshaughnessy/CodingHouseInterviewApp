@@ -3,8 +3,10 @@ import Immutable from 'seamless-immutable'
 import { createReducer } from 'reduxsauce'
 
 export const INITIAL_STATE = Immutable({
-  email: null,
+  token: null,
+  user: null,
   errorCode: null,
+  errorMessage: null,
   attempting: false
 })
 
@@ -13,23 +15,37 @@ const attempt = (state, action) =>
   state.merge({ attempting: true })
 
 // successful logins
-const success = (state, action) =>
-  state.merge({ attempting: false, errorCode: null, email: action.email })
+const success = (state, action) => {
+  let { token, user } = action;
+  return state.merge({
+    attempting: false,
+    errorCode: null,
+    errorMessage: null,
+    token: token,
+    user: user
+  })
+}
 
 // login failure
-const failure = (state, action) =>
-  state.merge({ attempting: false, errorCode: action.errorCode })
+const failure = (state, action) => {
+  let { status, message } = action
+  return state.merge({
+    attempting: false,
+    errorCode: status,
+    errorMessage: message
+  })
+}
 
 // logout
-const logout = (state, action) =>
-  state.merge({ username: null })
+// const logout = (state, action) =>
+//   state.merge({ username: null })
 
 // map our types to our handlers
 const ACTION_HANDLERS = {
   [Types.LOGIN_ATTEMPT]: attempt,
   [Types.LOGIN_SUCCESS]: success,
   [Types.LOGIN_FAILURE]: failure,
-  [Types.LOGOUT]: logout
+  // [Types.LOGOUT]: logout
 }
 
 export default createReducer(INITIAL_STATE, ACTION_HANDLERS)

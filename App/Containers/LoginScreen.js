@@ -22,8 +22,8 @@ class LoginScreen extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      email: '',
-      password: '',
+      email: 'admin@admin.com',
+      password: 'admin',
       visibleHeight: Metrics.screenHeight,
       topLogo: { width: Metrics.screenWidth }
     }
@@ -31,11 +31,22 @@ class LoginScreen extends React.Component {
   }
 
   componentWillReceiveProps (newProps) {
-    console.log(newProps.attempting);
     this.forceUpdate()
-    // Did the login attempt complete?
-    if (this.isAttempting && !newProps.attempting) {
+
+    const { attempting, errorMessage, close } = newProps
+    if (this.isAttempting && !attempting) {
       this.isAttempting = false
+      if (errorMessage) {
+        Alert.alert(
+          'Oops',
+          errorMessage,
+          [
+            {text: 'OK', onPress: () => console.log('OK pressed')}
+          ]
+        )
+      } else {
+        close()
+      }
     }
   }
 
@@ -83,26 +94,6 @@ class LoginScreen extends React.Component {
 
   handleChangePassword = (text) => {
     this.setState({ password: text })
-  }
-
-  _renderLoginButton = () => {
-    if (this.isAttempting) {
-      return (
-        <View style={styles.loginButtonWrapper}>
-          <View style={styles.loginButton}>
-            <ActivityIndicator />
-          </View>
-        </View>
-      )
-    } else {
-      return (
-        <TouchableOpacity style={styles.loginButtonWrapper} onPress={this.handlePressLogin}>
-          <View style={styles.loginButton}>
-            <Text style={styles.loginText}>Sign In</Text>
-          </View>
-        </TouchableOpacity>
-      )
-    }
   }
 
   render () {
@@ -155,7 +146,7 @@ class LoginScreen extends React.Component {
               <View style={styles.loginButton}>
                 {
                   this.isAttempting ?
-                  <ActivityIndicator animating={true} /> :
+                  <ActivityIndicator /> :
                   <Text style={styles.loginText}>Sign In</Text>
                 }
               </View>
@@ -172,19 +163,20 @@ class LoginScreen extends React.Component {
 LoginScreen.propTypes = {
   dispatch: PropTypes.func,
   attempting: PropTypes.bool,
-  close: PropTypes.func,
-  attemptLogin: PropTypes.func
+  attemptLogin: PropTypes.func,
+  close: PropTypes.func
 }
 
 const mapStateToProps = (state) => {
   return {
-    attempting: state.login.attempting
+    attempting: state.login.attempting,
+    errorMessage: state.login.errorMessage
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    // close: NavigationActions.pop,
+    close: NavigationActions.pop,
     attemptLogin: (email, password) => dispatch(Actions.attemptLogin(email, password))
   }
 }
