@@ -17,9 +17,9 @@ const requestTemperature = (city) => ({ type: Types.TEMPERATURE_REQUEST, city })
 const receiveTemperature = (temp) => ({ type: Types.TEMPERATURE_RECEIVE, temp })
 const receiveTemperatureFailure = () => ({ type: Types.TEMPERATURE_FAILURE })
 
-const requestQuestions = () => ({ type: Types.QUESTIONS_REQUEST })
-const receiveQuestions = (questions) => ({ type: Types.QUESTIONS_RECEIVE, questions })
-const receiveQuestionsFailure = () => ({ type: Types.QUESTIONS_FAILURE })
+const requestQuestions = (user) => ({ type: Types.QUESTIONS_REQUEST, user })
+const receiveQuestions = (payload) => ({ type: Types.QUESTIONS_RECEIVE, ...payload })
+const receiveQuestionsFailure = (payload) => ({ type: Types.QUESTIONS_FAILURE, ...payload })
 
 const updateInterviewData = (payload) => ({ type: Types.UPDATE_INTERVIEW_DATA, payload })
 const updateInterviewName = (name) => ({ type: Types.UPDATE_INTERVIEW_NAME, name })
@@ -33,6 +33,8 @@ const incrementIntervieweeTime = () => ({ type: Types.INCREMENT_INTERVIEWEE_TIME
 const incrementInterviewerTime = () => ({ type: Types.INCREMENT_INTERVIEWER_TIME })
 
 const stopTimer = () => ({ type: Types.STOP_TIMER })
+
+const reset = () => ({ type: Types.RESET })
 
 /**
  Makes available all the action creators we've created.
@@ -57,4 +59,5 @@ export default {
   incrementIntervieweeTime,
   incrementInterviewerTime,
   stopTimer,
+  reset,
 }

@@ -6,7 +6,9 @@ import {
   TouchableOpacity,
   Keyboard,
   LayoutAnimation,
-  View } from 'react-native'
+  View,
+  Alert
+} from 'react-native'
 import { Images } from '../Themes'
 import { connect } from 'react-redux'
 import RoundedButton from '../Components/RoundedButton'
@@ -19,8 +21,24 @@ import styles from './Styles/IntervieweeNameScreenStyle'
 class IntervieweeNameScreen extends React.Component {
 
   componentWillMount() {
-    if (!this.props.user) {
-      this.props.login()
+    const { user, login } = this.props
+    if (!user) {
+      login()
+    }
+  }
+
+  componentWillReceiveProps(newProps) {
+    const { isFetchingQuestions, questionsError, user, requestQuestions, login } = newProps
+    console.log("WHILL RECEIVE", isFetchingQuestions, questionsError)
+    if (!isFetchingQuestions && questionsError) {
+      Alert.alert(
+        'Hey!',
+        questionsError,
+        [
+          {text: 'Try Again', onPress: () => requestQuestions(user)},
+          {text: 'Login As A Different User', onPress: () => login()}
+        ]
+      )
     }
   }
 
@@ -67,16 +85,21 @@ class IntervieweeNameScreen extends React.Component {
 }
 
 IntervieweeNameScreen.propTypes = {
-  background: PropTypes.func,
-  login: PropTypes.func,
   name: PropTypes.string,
-  user: PropTypes.string
+  user: PropTypes.string,
+  questionsError: PropTypes.string,
+  login: PropTypes.func,
+  background: PropTypes.func,
+  updateInterviewName: PropTypes.func,
+  requestQuestions: PropTypes.func
 }
 
 const mapStateToProps = (state) => {
   return {
     name: state.interview.name,
-    user: state.login.user
+    user: state.login.user,
+    isFetchingQuestions: state.questions.fetching,
+    questionsError: state.questions.errorMessage
   }
 }
 
@@ -84,7 +107,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     login: NavigationActions.login,
     background: NavigationActions.background,
-    updateInterviewName: (name) => dispatch(Actions.updateInterviewName(name))
+    updateInterviewName: (name) => dispatch(Actions.updateInterviewName(name)),
+    requestQuestions: (user) => dispatch(Actions.requestQuestions(user))
   }
 }
 

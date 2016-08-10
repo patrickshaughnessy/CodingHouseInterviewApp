@@ -29,4 +29,6 @@ export default createTypes(`
 
   INCREMENT_INTERVIEWEE_TIME
   INCREMENT_INTERVIEWER_TIME
+
+  RESET
 `)

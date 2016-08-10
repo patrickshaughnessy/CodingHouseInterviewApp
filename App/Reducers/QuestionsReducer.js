@@ -3,41 +3,64 @@ import Immutable from 'seamless-immutable'
 import { createReducer } from 'reduxsauce'
 
 export const INITIAL_STATE = Immutable({
-  background: null,
-  technical: null,
-  personality: null,
-  inferred: null,
   fetching: null,
-  error: null,
+  errorMessage: null,
+  errorCode: null,
 })
+
+const transformCategories = (categories) => {
+  return categories.reduce((a, category) => {
+    let { category: {name: name}, questions } = category
+    a[name] = questions;
+    return a;
+  }, {})
+}
 
 // request questions
 const request = (state, action) =>
   state.merge({
     fetching: true,
+    errorMessage: null,
+    errorCode: null
   })
 
 // receive questions
-const receive = (state, action) =>
-  state.merge({
+const receive = (state, action) => {
+  let { categories } = action
+  const questions = transformCategories(categories)
+  return state.merge({
     fetching: false,
-    error: null,
-    ...action.questions
+    errorCode: null,
+    errorMessage: null,
+    ...questions
   })
+}
 
 // questions failure
-const failure = (state, action) =>
-  state.merge({
+const failure = (state, action) => {
+  let { message, status } = action
+  return state.merge({
     fetching: false,
-    error: true,
-    questions: null
+    errorMessage: message,
+    errorCode: status
   })
+}
+
+const reset = (state, action) => {
+  // any question categories will remain on the state, but that's ok
+  return state.merge({
+    fetching: false,
+    errorMessage: null,
+    errorCode: null
+  })
+}
 
 // map our types to our handlers
 const ACTION_HANDLERS = {
   [Types.QUESTIONS_REQUEST]: request,
   [Types.QUESTIONS_RECEIVE]: receive,
-  [Types.QUESTIONS_FAILURE]: failure
+  [Types.QUESTIONS_FAILURE]: failure,
+  [Types.RESET]: reset,
 }
 
 export default createReducer(INITIAL_STATE, ACTION_HANDLERS)

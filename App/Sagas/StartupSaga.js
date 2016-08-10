@@ -14,8 +14,8 @@ export function * watchStartup () {
   //   yield put(NavigationActions.login())
   // }
 
-  const questions = yield select((state) => state.questions.background)
-  if (R.isNil(questions)) {
-    yield put(Actions.requestQuestions())
-  }
+  // const questions = yield select((state) => state.questions.background)
+  // if (R.isNil(questions)) {
+  //   yield put(Actions.requestQuestions())
+  // }
 }

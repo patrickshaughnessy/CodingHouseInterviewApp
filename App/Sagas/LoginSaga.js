@@ -9,7 +9,8 @@ export default (api) => {
 
     if (response.ok) {
       const { token, user } = response.data
-      yield put(Actions.loginSuccess({ token, user }))
+      yield put(Actions.loginSuccess({ token, user: JSON.parse(user) }))
+      yield put(Actions.requestQuestions(JSON.parse(user)))
     } else {
       const { status, data: {message} } = response
       yield put(Actions.loginFailure({ message, status }))
@@ -19,6 +20,7 @@ export default (api) => {
   function * watcher () {
     while (true) {
       const { email, password } = yield take(Types.LOGIN_ATTEMPT)
+      yield put(Actions.reset());
       yield call(worker, email, password)
     }
   }

@@ -40,12 +40,21 @@ const failure = (state, action) => {
 // const logout = (state, action) =>
 //   state.merge({ username: null })
 
+const reset = (state, action) =>
+  state.merge({
+    token: null,
+    user: null,
+    errorCode: null,
+    errorMessage: null
+  })
+
 // map our types to our handlers
 const ACTION_HANDLERS = {
   [Types.LOGIN_ATTEMPT]: attempt,
   [Types.LOGIN_SUCCESS]: success,
   [Types.LOGIN_FAILURE]: failure,
   // [Types.LOGOUT]: logout
+  [Types.RESET]: reset
 }
 
 export default createReducer(INITIAL_STATE, ACTION_HANDLERS)

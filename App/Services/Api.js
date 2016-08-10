@@ -35,6 +35,7 @@ const create = (baseURL = DebugSettings.baseURL) => {
   // way at this level.
   //
   const login = (email, password) => api.post('/auth', {email, password})
+  const getQuestions = (user) => api.get(`/api/settings/${user._id}`)
 
   // ------
   // STEP 3
@@ -43,14 +44,6 @@ const create = (baseURL = DebugSettings.baseURL) => {
   // Return back a collection of functions that we would consider our
   // interface.  Most of the time it'll be just the list of all the
   // methods in step 2.
-  const getQuestions = () => {
-    const questionData = require('../Fixtures/questions.json')
-
-    return {
-      ok: true,
-      data: questionData
-    }
-  }
 
 
   // Notice we're not returning back the `api` created in step 1?  That's
