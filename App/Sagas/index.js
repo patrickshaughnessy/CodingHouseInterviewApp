@@ -1,11 +1,9 @@
 import { fork } from 'redux-saga/effects'
 import API from '../Services/Api'
-import FixtureAPI from '../Services/FixtureApi'
 import { watchStartup } from './StartupSaga'
 import LoginSaga from './LoginSaga'
-import getCityWeather from './GetCityWeatherSaga'
-import getQuestionsSaga from './GetQuestionsSaga'
-import getUsersSaga from './GetUsersSaga'
+import QuestionsSaga from './QuestionsSaga'
+import UsersSaga from './UsersSaga'
 
 import DebugSettings from '../Config/DebugSettings'
 
@@ -19,6 +17,6 @@ const api = API.create()
 export default function * root () {
   yield fork(watchStartup)
   yield fork(LoginSaga(api).watcher)
-  yield fork(getQuestionsSaga(api).watcher)
-  yield fork(getUsersSaga(api).watcher)
+  yield fork(QuestionsSaga(api).watcher)
+  yield fork(UsersSaga(api).watcher)
 }

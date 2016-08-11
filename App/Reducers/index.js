@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux'
 import LoginReducer from './LoginReducer'
-import WeatherReducer from './WeatherReducer'
 import QuestionsReducer from './QuestionsReducer'
 import InterviewReducer from './InterviewReducer'
 import UsersReducer from './UsersReducer'
@@ -8,7 +7,6 @@ import UsersReducer from './UsersReducer'
 // glue all the reducers together into 1 root reducer
 export default combineReducers({
   login: LoginReducer,
-  // weather: WeatherReducer,
   questions: QuestionsReducer,
   interview: InterviewReducer,
   users: UsersReducer

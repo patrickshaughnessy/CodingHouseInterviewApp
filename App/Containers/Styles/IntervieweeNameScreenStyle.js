@@ -67,7 +67,6 @@ export default StyleSheet.create({
     margin: 3,
   },
   itemText: {
-    // flex: 1,
     padding: 10,
     shadowColor: "#000000",
     shadowOpacity: 0.5,
@@ -77,11 +76,4 @@ export default StyleSheet.create({
       width: 1
     }
   }
-  // autocompleteContainer: {
-  //   flex: 1,
-  //   left: 0,
-  //   position: 'absolute',
-  //   right: 0,
-  //   top: 20
-  // },
 })

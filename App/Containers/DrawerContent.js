@@ -16,35 +16,11 @@ class DrawerContent extends Component {
     NavigationActions.background({ title: this.props.name })
   }
 
-  handlePressUsage = () => {
-    this.toggleDrawer()
-    NavigationActions.usageExamples()
-  }
-
-  handlePressAPI = () => {
-    this.toggleDrawer()
-    NavigationActions.apiTesting()
-  }
-
-  handlePressTheme = () => {
-    this.toggleDrawer()
-    NavigationActions.theme()
-  }
-
-  handlePressDevice = () => {
-    this.toggleDrawer()
-    NavigationActions.deviceInfo()
-  }
-
   render () {
     return (
       <ScrollView style={styles.container}>
         <Image source={Images.logo} style={styles.logo} resizeMode={'contain'} />
         <DrawerButton text='Background' onPress={this.handleBackground} />
-        <DrawerButton text='Usage Examples' onPress={this.handlePressUsage} />
-        <DrawerButton text='API Testing' onPress={this.handlePressAPI} />
-        <DrawerButton text='Themes' onPress={this.handlePressTheme} />
-        <DrawerButton text='Device Info' onPress={this.handlePressDevice} />
       </ScrollView>
     )
   }
