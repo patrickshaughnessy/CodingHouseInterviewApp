@@ -22,22 +22,10 @@
     * Run Genymotion
     * run `react-native run-android`
 
-## :no_entry_sign: Standard Compliant
+## :arrow_forward: How to Build The App (iOS)
 
-[![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
-This project adheres to Standard.  Our CI enforces this, so we suggest you enable linting to keep your project compliant during development.
-
-**To Lint on Commit**
-
-This is implemented using [ghooks](https://github.com/gtramontina/ghooks). There is no additional setup needed.
-
-**Bypass Lint**
-
-If you have to bypass lint for a special commit that you will come back and clean (pushing something to a branch etc.) then you can bypass git hooks with adding `--no-verify` to your commit command.
-
-**Understanding Linting Errors**
-
-The linting rules are from JS Standard and React-Standard.  [Regular JS errors can be found with descriptions here](http://eslint.org/docs/rules/), while [React errors and descriptions can be found here](https://github.com/yannickcr/eslint-plugin-react).
-
-## :open_file_folder: Related Articles
-Ignite Documentation - [Ignite Wiki https://github.com/infinitered/ignite/wiki](https://github.com/infinitered/ignite/wiki)
+1. open project in xcode
+2. change product scheme to "Release"
+  * Go to Product > Scheme > InterviewApp
+  * Change "Debug" to "Release"
+3. select a device and run
