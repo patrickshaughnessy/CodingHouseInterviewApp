@@ -8,10 +8,14 @@ export const INITIAL_STATE = Immutable({
   interviewerTime: 0,
   timeControl: 1,
   timerID: null,
-  background: {},
+  viewing: null,
+  answers: {}
 })
 
-const updateData = (state, action) =>
+const viewQuestionsForCategory = (state, action) =>
+  state.merge({ viewing: action.category })
+
+const updateInterviewData = (state, action) =>
   state.merge({...action.payload}, {deep: true}) // need deep:true for multiple questions in state
 
 const updateInterviewee = (state, action) =>
@@ -51,7 +55,7 @@ const incrementInterviewerTime = (state, action) =>
 
 // map our types to our handlers
 const ACTION_HANDLERS = {
-  [Types.UPDATE_INTERVIEW_DATA]: updateData,
+  [Types.UPDATE_INTERVIEW_DATA]: updateInterviewData,
   [Types.UPDATE_INTERVIEWEE]: updateInterviewee,
   [Types.UPDATE_TIME_CONTROL]: updateTimeControl,
   [Types.STOP_TIMER]: stopTimer,
@@ -59,7 +63,7 @@ const ACTION_HANDLERS = {
   [Types.START_INTERVIEWER_TIME]: startInterviewerTime,
   [Types.INCREMENT_INTERVIEWEE_TIME]: incrementIntervieweeTime,
   [Types.INCREMENT_INTERVIEWER_TIME]: incrementInterviewerTime,
-
+  [Types.VIEW_QUESTIONS_FOR_CATEGORY]: viewQuestionsForCategory
 }
 
 export default createReducer(INITIAL_STATE, ACTION_HANDLERS)

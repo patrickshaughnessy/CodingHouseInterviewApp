@@ -48,9 +48,9 @@ export default class Question extends React.Component {
 
     answers[level] = userInput;
 
-    let payload = {};
-    payload[category.name] = {};
-    payload[category.name][_id] = answers
+    let payload = {answers: {}};
+    payload.answers[category.name] = {};
+    payload.answers[category.name][_id] = answers
     updateInterviewData(payload)
   }
 

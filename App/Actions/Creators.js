@@ -40,6 +40,8 @@ const stopTimer = () => ({ type: Types.STOP_TIMER })
 
 const reset = () => ({ type: Types.RESET })
 
+const viewQuestionsForCategory = (category) => ({ type: Types.VIEW_QUESTIONS_FOR_CATEGORY, category})
+
 /**
  Makes available all the action creators we've created.
  */
@@ -77,4 +79,6 @@ export default {
   stopTimer,
 
   reset,
+
+  viewQuestionsForCategory
 }

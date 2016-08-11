@@ -35,4 +35,6 @@ export default createTypes(`
   INCREMENT_INTERVIEWER_TIME
 
   RESET
+
+  VIEW_QUESTIONS_FOR_CATEGORY
 `)

@@ -17,22 +17,22 @@ import Accordion from 'react-native-collapsible/Accordion';
 import Question from '../Components/Question'
 import Footer from './Footer'
 
-import styles from './Styles/BackgroundScreenStyle'
+import styles from './Styles/QuestionScreenStyle'
 
 import Immutable from 'seamless-immutable'
 
-class BackgroundScreen extends Component {
+class QuestionScreen extends Component {
   constructor(props) {
     super(props)
 
-    const { questions, answers } = this.props
+    const { questions, answers, viewing } = this.props
 
     const rowHasChanged = (r1, r2) => r1 !== r2
 
     const ds = new ListView.DataSource({rowHasChanged})
 
-    const a = answers.asMutable({deep: true})
-    const qX = questions.asMutable({deep: true})
+    const a = answers[viewing] ? answers[viewing].asMutable({deep: true}) : answers.asMutable()
+    const qX = questions[viewing].asMutable({deep: true})
     const qa = qX.map(q => {
       q.answers = a[q._id] ? a[q._id] : []
       return q
@@ -47,9 +47,9 @@ class BackgroundScreen extends Component {
 
   componentWillReceiveProps (newProps) {
     if (newProps) {
-      const { questions, answers } = newProps
-      const a = answers.asMutable({deep: true})
-      const qX = questions.asMutable({deep: true})
+      const { questions, answers, viewing } = newProps
+      const a = answers[viewing] ? answers[viewing].asMutable({deep: true}) : answers.asMutable()
+      const qX = questions[viewing].asMutable({deep: true})
       const qa = qX.map(q => {
         q.answers = a[q._id] ? a[q._id] : []
         return q
@@ -74,12 +74,13 @@ class BackgroundScreen extends Component {
   }
 
   render() {
+    const { viewing } = this.props;
     return (
       <View style={styles.outerContainer}>
         <ScrollView style={styles.scrollView}>
           <View style={styles.container}>
 
-            <Text style={styles.title}>Background</Text>
+            <Text style={styles.title}>{viewing.slice(0,1).toUpperCase() + viewing.slice(1)}</Text>
 
             <ListView
               contentContainerStyle={styles.listContainer}
@@ -97,9 +98,9 @@ class BackgroundScreen extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    questions: state.questions.background,
-    answers: state.interview.background,
-
+    questions: state.questions.questions,
+    answers: state.interview.answers,
+    viewing: state.interview.viewing
   }
 }
 
@@ -109,4 +110,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(BackgroundScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(QuestionScreen)

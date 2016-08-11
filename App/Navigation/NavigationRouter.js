@@ -7,7 +7,7 @@ import NavItems from './NavItems'
 // screens identified by the router
 
 import IntervieweeNameScreen from '../Containers/IntervieweeNameScreen'
-import BackgroundScreen from '../Containers/BackgroundScreen'
+import QuestionScreen from '../Containers/QuestionScreen'
 import LoginScreen from '../Containers/LoginScreen'
 
 /* **************************
@@ -15,6 +15,7 @@ import LoginScreen from '../Containers/LoginScreen'
 ***************************/
 
 class NavigationRouter extends Component {
+
   render () {
     return (
       <Router>
@@ -22,7 +23,7 @@ class NavigationRouter extends Component {
           <Scene key='drawerChildrenWrapper' navigationBarStyle={Styles.navBar} titleStyle={Styles.title} leftButtonIconStyle={Styles.leftButton} rightButtonTextStyle={Styles.rightButton}>
             <Scene key='login' component={LoginScreen} direction='vertical' hideNavBar />
             <Scene initial key='interview' component={IntervieweeNameScreen} title='Interview' renderLeftButton={NavItems.hamburgerButton} />
-            <Scene key='background' component={BackgroundScreen} title='Background' />
+            <Scene key='questions' component={QuestionScreen} />
           </Scene>
         </Scene>
       </Router>

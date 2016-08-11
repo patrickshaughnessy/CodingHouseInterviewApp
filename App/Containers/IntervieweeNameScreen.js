@@ -53,7 +53,7 @@ class IntervieweeNameScreen extends React.Component {
   }
 
   startInterview = () => {
-    const { interviewee, background } = this.props
+    const { interviewee, viewQuestionsForCategory, categories } = this.props
     if (!interviewee) {
       Alert.alert(
         'Wait!',
@@ -63,7 +63,8 @@ class IntervieweeNameScreen extends React.Component {
         ]
       )
     } else {
-      background({ title: interviewee.name });
+      viewQuestionsForCategory(categories[0])
+      NavigationActions.questions({ title: interviewee.name });
     }
   }
 
@@ -117,21 +118,6 @@ class IntervieweeNameScreen extends React.Component {
               )}
             />
           </View>
-          {/* <View style={styles.form}>
-            <View style={styles.row}>
-              <Text style={styles.rowLabel}>Name</Text>
-              <TextInput
-                ref='name'
-                value={name}
-                style={styles.textInput}
-                keyboardType='default'
-                returnKeyType='go'
-                onChangeText={updateInterviewName}
-                underlineColorAndroid='transparent'
-                onSubmitEditing={this.startInterview}
-                placeholder='Bob Jones' />
-            </View>
-          </View> */}
 
           <RoundedButton onPress={this.startInterview}>
             Start Interviewing!
@@ -154,7 +140,9 @@ IntervieweeNameScreen.propTypes = {
   isFetchingUsers: PropTypes.bool,
   isFetchingQuestions: PropTypes.bool,
   users: PropTypes.array,
-  usersError: PropTypes.string
+  usersError: PropTypes.string,
+  viewQuestionsForCategory: PropTypes.func,
+  categories: PropTypes.array
 }
 
 const mapStateToProps = (state) => {
@@ -166,16 +154,17 @@ const mapStateToProps = (state) => {
     isFetchingUsers: state.users.fetching,
     users: state.users.users,
     usersError: state.users.errorMessage,
-    interviewee: state.interview.interviewee
+    interviewee: state.interview.interviewee,
+    categories: state.questions.categories
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     login: NavigationActions.login,
-    background: NavigationActions.background,
     updateInterviewee: (user) => dispatch(Actions.updateInterviewee(user)),
-    requestQuestions: (user) => dispatch(Actions.requestQuestions(user))
+    requestQuestions: (user) => dispatch(Actions.requestQuestions(user)),
+    viewQuestionsForCategory: (category) => dispatch(Actions.viewQuestionsForCategory(category))
   }
 }
 

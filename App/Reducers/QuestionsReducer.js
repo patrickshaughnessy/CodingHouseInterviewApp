@@ -3,12 +3,14 @@ import Immutable from 'seamless-immutable'
 import { createReducer } from 'reduxsauce'
 
 export const INITIAL_STATE = Immutable({
+  questions: null,
+  categories: null,
   fetching: null,
   errorMessage: null,
   errorCode: null,
 })
 
-const transformCategories = (categories) => {
+const mapQuestionsToCategories = (categories) => {
   return categories.reduce((a, category) => {
     let { category: {name: name}, questions } = category
     a[name] = questions;
@@ -27,12 +29,12 @@ const request = (state, action) =>
 // receive questions
 const receive = (state, action) => {
   let { categories } = action
-  const questions = transformCategories(categories)
   return state.merge({
     fetching: false,
     errorCode: null,
     errorMessage: null,
-    ...questions
+    questions: mapQuestionsToCategories(categories),
+    categories: categories.map(({category}) => category.name)
   })
 }
 
