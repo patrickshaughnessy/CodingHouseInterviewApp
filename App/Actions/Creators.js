@@ -1,13 +1,10 @@
 import Types from './Types'
 
-const attemptLogin = (email, password) =>
-  ({ type: Types.LOGIN_ATTEMPT, email, password })
+const attemptLogin = (email, password) => ({ type: Types.LOGIN_ATTEMPT, email, password })
 
-const loginSuccess = (payload) =>
-  ({ type: Types.LOGIN_SUCCESS, ...payload })
+const loginSuccess = (payload) => ({ type: Types.LOGIN_SUCCESS, ...payload })
 
-const loginFailure = (payload) =>
-  ({ type: Types.LOGIN_FAILURE, ...payload })
+const loginFailure = (payload) => ({ type: Types.LOGIN_FAILURE, ...payload })
 
 const logout = () => ({ type: Types.LOGOUT })
 
@@ -40,7 +37,7 @@ const stopTimer = () => ({ type: Types.STOP_TIMER })
 
 const reset = () => ({ type: Types.RESET })
 
-const viewQuestionsForCategory = (category) => ({ type: Types.VIEW_QUESTIONS_FOR_CATEGORY, category})
+const viewQuestionsForCategory = (category) => ({ type: Types.VIEW_QUESTIONS_FOR_CATEGORY, category })
 
 /**
  Makes available all the action creators we've created.
@@ -49,36 +46,25 @@ export default {
   attemptLogin,
   loginSuccess,
   loginFailure,
-
   logout,
-
   startup,
-
   requestTemperature,
   receiveTemperature,
   receiveTemperatureFailure,
-
   requestQuestions,
   receiveQuestions,
   receiveQuestionsFailure,
-
   requestUsers,
   receiveUsers,
   receiveUsersFailure,
-
   updateInterviewee,
   updateInterviewData,
-
   updateTimeControl,
-
   startIntervieweeTime,
   startInterviewerTime,
   incrementIntervieweeTime,
   incrementInterviewerTime,
-
   stopTimer,
-
   reset,
-
   viewQuestionsForCategory
 }

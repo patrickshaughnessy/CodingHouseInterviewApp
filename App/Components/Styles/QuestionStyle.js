@@ -1,5 +1,4 @@
 import { StyleSheet } from 'react-native'
-import { Colors, Metrics, ApplicationStyles } from '../../Themes/'
 
 export default StyleSheet.create({
   container: {
@@ -7,26 +6,26 @@ export default StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
     // padding: 10,
-    backgroundColor: 'white',
+    backgroundColor: 'white'
     // borderWidth: 1,
     // borderColor: 'yellow',
 
   },
   header: {
     backgroundColor: '#F5FCFF',
-    padding: 10,
+    padding: 10
   },
   headerText: {
     textAlign: 'center',
     fontSize: 16,
-    fontWeight: '500',
+    fontWeight: '500'
   },
   question: {
     // borderWidth: 5,
     // borderColor: 'green',
     // margin: 10,
     // padding: 5
-  },
+  }
   // title: {
   //   textAlign: 'center',
   //   fontSize: 22,

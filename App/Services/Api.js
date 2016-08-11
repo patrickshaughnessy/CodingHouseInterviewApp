@@ -4,7 +4,6 @@ import Reactotron from 'reactotron'
 import DebugSettings from '../Config/DebugSettings'
 
 const create = (baseURL = DebugSettings.baseURL) => {
-
   const api = apisauce.create({baseURL})
 
   const addMonitor = api.addMonitor((response) => {
@@ -12,10 +11,9 @@ const create = (baseURL = DebugSettings.baseURL) => {
     Reactotron.apiLog(response)
   })
 
-
   const login = (email, password) => api.post('/auth', { email, password })
   const getQuestions = (user) => api.get(`/api/settings/${user._id}`)
-  const getUsers = (token) => api.post(`/api/users`, { token })
+  const getUsers = (token) => api.post('/api/users', { token })
 
   return {
     // a list of the API functions

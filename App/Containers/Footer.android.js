@@ -11,7 +11,6 @@ import styles, { android } from './Styles/FooterStyle'
 import moment from 'moment'
 import { SegmentedControls } from 'react-native-radio-buttons'
 
-
 class Footer extends Component {
 
   // // Prop type warnings
@@ -24,7 +23,7 @@ class Footer extends Component {
   // static defaultProps = {
   //   someSetting: false
   // }
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.options = ['Interviewee', 'PAUSE', 'Interviewer']
   }
@@ -38,32 +37,32 @@ class Footer extends Component {
 
   _handleControlChange = (option, e) => {
     console.log(e)
-    let { selectedIndex, selectIndex, timerID, stopTimer, startIntervieweeTime, startInterviewerTime, incrementIntervieweeTime, incrementInterviewerTime, updateTimeControl } = this.props
+    let { selectedIndex, timerID, stopTimer, startIntervieweeTime, startInterviewerTime, incrementIntervieweeTime, incrementInterviewerTime, updateTimeControl } = this.props
     let index = this.options.indexOf(option)
 
-    if (selectedIndex === index) return;
+    if (selectedIndex === index) return
 
     if (timerID) {
       clearInterval(timerID)
       stopTimer()
     };
 
-    let intervalID;
+    let intervalID
     switch (index) {
       case 0:
         intervalID = setInterval(() => {
           incrementIntervieweeTime()
-        }, 1000);
+        }, 1000)
         startIntervieweeTime(intervalID)
-        break;
+        break
       case 2:
         intervalID = setInterval(() => {
           incrementInterviewerTime()
-        }, 1000);
+        }, 1000)
         startInterviewerTime(intervalID)
         break
     }
-    updateTimeControl(index);
+    updateTimeControl(index)
   }
 
   render () {

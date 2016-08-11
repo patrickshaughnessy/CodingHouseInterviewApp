@@ -1,12 +1,12 @@
 import { StyleSheet } from 'react-native'
-import { Colors, Metrics, ApplicationStyles } from '../../Themes/'
+import { Colors, Metrics } from '../../Themes/'
 
 export const android = {
   tint: 'white',
   paused: Colors.red,
   running: Colors.green,
   containerStyle: {
-    flex: 1,
+    flex: 1
   },
   optionContainerStyle: {
     textAlign: 'center',
@@ -24,7 +24,7 @@ export default StyleSheet.create({
   },
   controlsContainer: {
     flex: 1,
-    backgroundColor: Colors.red,
+    backgroundColor: Colors.red
   },
   intervieweeTimeControl: {
     backgroundColor: Colors.green
@@ -34,11 +34,11 @@ export default StyleSheet.create({
   },
   segmentedControl: {
     flex: 1,
-    tintColor: 'white',
+    tintColor: 'white'
   },
   timeContainer: {
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: 'row'
   },
   time: {
     flex: 1,
@@ -53,13 +53,13 @@ export default StyleSheet.create({
     fontSize: 12,
     textAlign: 'center',
     paddingTop: 3,
-    paddingBottom: 3,
+    paddingBottom: 3
   },
   textCount: {
     flex: 2,
     color: 'white',
     fontSize: 18,
-    textAlign: 'center',
-  },
+    textAlign: 'center'
+  }
 
 })

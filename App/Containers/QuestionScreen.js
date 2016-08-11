@@ -1,28 +1,20 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {
   ScrollView,
   Text,
   View,
-  TextInput,
-  TouchableHighlight,
   ListView
-} from 'react-native';
-import { connect } from 'react-redux';
-import Actions from '../Actions/Creators';
-
-import * as Animatable from 'react-native-animatable';
-import Collapsible from 'react-native-collapsible';
-import Accordion from 'react-native-collapsible/Accordion';
+} from 'react-native'
+import { connect } from 'react-redux'
+import Actions from '../Actions/Creators'
 
 import Question from '../Components/Question'
 import Footer from './Footer'
 
 import styles from './Styles/QuestionScreenStyle'
 
-import Immutable from 'seamless-immutable'
-
 class QuestionScreen extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
 
     const { questions, answers, viewing } = this.props
@@ -54,7 +46,7 @@ class QuestionScreen extends Component {
         q.answers = a[q._id] ? a[q._id] : []
         return q
       })
-      console.log('will receive props', qa);
+      console.log('will receive props', qa)
       this.setState({
         dataSource: this.state.dataSource.cloneWithRows(qa)
       })
@@ -73,14 +65,14 @@ class QuestionScreen extends Component {
     )
   }
 
-  render() {
-    const { viewing } = this.props;
+  render () {
+    const { viewing } = this.props
     return (
       <View style={styles.outerContainer}>
         <ScrollView style={styles.scrollView}>
           <View style={styles.container}>
 
-            <Text style={styles.title}>{viewing.slice(0,1).toUpperCase() + viewing.slice(1)}</Text>
+            <Text style={styles.title}>{viewing.slice(0, 1).toUpperCase() + viewing.slice(1)}</Text>
 
             <ListView
               contentContainerStyle={styles.listContainer}
@@ -92,7 +84,7 @@ class QuestionScreen extends Component {
         </ScrollView>
         <Footer />
       </View>
-    );
+    )
   }
 }
 

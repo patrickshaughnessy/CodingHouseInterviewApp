@@ -2,14 +2,10 @@ import React, {PropTypes} from 'react'
 import {
   ScrollView,
   Text,
-  TextInput,
   TouchableOpacity,
-  Keyboard,
-  LayoutAnimation,
   View,
   Alert
 } from 'react-native'
-import { Images } from '../Themes'
 import { connect } from 'react-redux'
 import RoundedButton from '../Components/RoundedButton'
 import { Actions as NavigationActions } from 'react-native-router-flux'
@@ -20,25 +16,24 @@ import Autocomplete from 'react-native-autocomplete-input'
 // styles
 import styles from './Styles/IntervieweeNameScreenStyle'
 
-
 class IntervieweeNameScreen extends React.Component {
 
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
 
     this.state = {
-      query: '',
+      query: ''
     }
   }
 
-  componentWillMount() {
+  componentWillMount () {
     const { user, login } = this.props
     if (!user) {
       login()
     }
   }
 
-  componentWillReceiveProps(newProps) {
+  componentWillReceiveProps (newProps) {
     const { isFetchingQuestions, questionsError, user, requestQuestions, login } = newProps
     if (!isFetchingQuestions && questionsError) {
       Alert.alert(
@@ -64,35 +59,34 @@ class IntervieweeNameScreen extends React.Component {
       )
     } else {
       viewQuestionsForCategory(categories[0])
-      NavigationActions.questions({ title: interviewee.name });
+      NavigationActions.questions({ title: interviewee.name })
     }
   }
 
   _findUsers = (query) => {
     const { users } = this.props
     if (!query) {
-      return users || [];
+      return users || []
     }
 
-    const regex = new RegExp(`${query.trim()}`, 'i');
-    return users.filter(user => user.name.search(regex) >= 0);
+    const regex = new RegExp(`${query.trim()}`, 'i')
+    return users.filter(user => user.name.search(regex) >= 0)
   }
 
   _updateInterviewee = (user) => {
     const { updateInterviewee } = this.props
     this.setState({ query: user.name })
-    updateInterviewee(user);
+    updateInterviewee(user)
   }
 
   render () {
-    const { updateInterviewName, name } = this.props
     const { query } = this.state
-    const users = this._findUsers(query);
+    const users = this._findUsers(query)
     console.log(query)
     const comp = (q, s) => q.toLowerCase().trim() === s.toLowerCase().trim()
     return (
       <View style={styles.mainContainer}>
-        <ScrollView style={styles.container} keyboardShouldPersistTaps={true}>
+        <ScrollView style={styles.container} keyboardShouldPersistTaps>
 
           <View style={styles.section} >
             <Text style={styles.sectionText} >
@@ -103,12 +97,12 @@ class IntervieweeNameScreen extends React.Component {
           <View>
             <Autocomplete
               autoCapitalize='none'
-              autoCorrect={true}
+              autoCorrect
               containerStyle={styles.autocompleteContainer}
               data={users.length === 1 && comp(query, users[0].name) ? [] : users}
               defaultValue={query}
               onChangeText={text => this.setState({ query: text })}
-              placeholder="Who are you interviewing?"
+              placeholder='Who are you interviewing?'
               renderItem={(user) => (
                 <TouchableOpacity onPress={() => this._updateInterviewee(user)}>
                   <View style={styles.itemContainer}>

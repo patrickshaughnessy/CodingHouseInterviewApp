@@ -1,17 +1,16 @@
 import { StyleSheet } from 'react-native'
-import { Colors, Metrics, ApplicationStyles } from '../../Themes/'
 
 export default StyleSheet.create({
   container: {
     paddingTop: 5,
-    paddingBottom: 5,
+    paddingBottom: 5
     // borderColor: 'black',
     // borderWidth: 1,
   },
   question: {
     padding: 2,
     textAlign: 'center',
-    fontSize: 16,
+    fontSize: 16
   },
   radioContainer: {
     flex: 1,
@@ -32,17 +31,17 @@ export default StyleSheet.create({
     borderWidth: 2,
     borderColor: '#000',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   radioInner: {
     height: 12,
     width: 12,
     borderRadius: 6,
-    backgroundColor: '#000',
+    backgroundColor: '#000'
   },
   optionText: {
     textAlign: 'center',
     padding: 2,
-    fontSize: 14,
-  },
+    fontSize: 14
+  }
 })

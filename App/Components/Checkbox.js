@@ -27,12 +27,12 @@ export default class Checkbox extends React.Component {
             <CheckboxField
               label={label}
               onSelect={() => onChange(position, !answer)}
-              selected={ answer || defaultValue }
+              selected={answer || defaultValue}
               containerStyle={styles.checkboxContainer}
               labelStyle={styles.labelStyle}
               labelSide={'right'}
             >
-              <View style={answer ? styles.checked : styles.unchecked}></View>
+              <View style={answer ? styles.checked : styles.unchecked} />
             </CheckboxField>
           </View>
         </View>
@@ -47,17 +47,16 @@ export default class Checkbox extends React.Component {
             <CheckboxField
               label={label}
               onSelect={() => onChange(position, !answer)}
-              selected={ answer || defaultValue }
+              selected={answer || defaultValue}
               containerStyle={styles.checkboxContainer}
               labelStyle={styles.labelStyle}
               labelSide={'right'}
             >
-              <View style={answer ? styles.checked : styles.unchecked}></View>
+              <View style={answer ? styles.checked : styles.unchecked} />
             </CheckboxField>
           </View>
         </View>
       )
     }
-
   }
 }

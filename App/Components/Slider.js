@@ -21,7 +21,7 @@ export default class SliderComponent extends React.Component {
 
   render () {
     let { question, position, range, defaultValue, onChange, answer } = this.props
-    let rangeDisplay = [];
+    let rangeDisplay = []
     for (let i = 1; i <= range; i++) {
       rangeDisplay.push(<Text key={i} style={styles.rangeText}>{i}</Text>)
     }

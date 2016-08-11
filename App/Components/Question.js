@@ -2,16 +2,11 @@ import React from 'react'
 import {
   View,
   Text,
-  TextInput,
-  TouchableOpacity,
-  TouchableHighlight,
-  ListView
+  TouchableHighlight
 } from 'react-native'
 import styles from './Styles/QuestionStyle'
-import { Metrics } from '../Themes'
 
-import * as Animatable from 'react-native-animatable';
-import Collapsible from 'react-native-collapsible';
+import Collapsible from 'react-native-collapsible'
 
 import RadioButtons from './RadioButtons'
 import InputBox from './InputBox'
@@ -31,12 +26,11 @@ export default class Question extends React.Component {
   // }
 
   constructor (props) {
-    super(props);
+    super(props)
 
     this.state = {
       collapsed: true
     }
-
   }
 
   _toggleCollapsed = (e) => {
@@ -46,10 +40,10 @@ export default class Question extends React.Component {
   _onUpdateInterviewData = (level, userInput) => {
     let { category, _id, answers, updateInterviewData } = this.props
 
-    answers[level] = userInput;
+    answers[level] = userInput
 
-    let payload = {answers: {}};
-    payload.answers[category.name] = {};
+    let payload = {answers: {}}
+    payload.answers[category.name] = {}
     payload.answers[category.name][_id] = answers
     updateInterviewData(payload)
   }
@@ -71,7 +65,7 @@ export default class Question extends React.Component {
   }
 
   render () {
-    let { question, type } = this.props.levels[0]
+    let { question } = this.props.levels[0]
 
     return (
       <View style={styles.container}>
@@ -80,7 +74,7 @@ export default class Question extends React.Component {
             <Text style={styles.headerText}>{question}</Text>
           </View>
         </TouchableHighlight>
-        <Collapsible collapsed={this.state.collapsed} align="center">
+        <Collapsible collapsed={this.state.collapsed} align='center'>
           <View style={styles.question}>
             {this._renderContent()}
           </View>

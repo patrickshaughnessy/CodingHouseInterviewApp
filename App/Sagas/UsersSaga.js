@@ -15,7 +15,7 @@ export default (api) => {
     } else {
       const { status, problem } = response
       yield put(Actions.receiveUsersFailure({ message: problem, status }))
-     }
+    }
   }
 
   function * watcher () {

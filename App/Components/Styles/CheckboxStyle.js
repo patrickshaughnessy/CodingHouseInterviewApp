@@ -1,19 +1,19 @@
 import { StyleSheet } from 'react-native'
-import { Colors, Metrics, ApplicationStyles } from '../../Themes/'
+import { Colors } from '../../Themes/'
 
 export default StyleSheet.create({
   container: {
     flexDirection: 'column',
     marginBottom: 10,
     marginTop: 10,
-    padding: 5,
+    padding: 5
     // borderWidth: 4,
     // borderColor: 'red'
   },
   innerContainer: {
     flex: 1,
     flexDirection: 'row',
-    padding: 5,
+    padding: 5
   },
   text: {
     fontSize: 16
@@ -23,7 +23,7 @@ export default StyleSheet.create({
   },
   unchecked: {
     height: 20,
-    width: 20,
+    width: 20
   },
   checked: {
     height: 20,

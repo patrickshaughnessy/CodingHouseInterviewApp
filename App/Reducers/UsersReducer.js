@@ -13,7 +13,7 @@ const request = (state, action) =>
   state.merge({ fetching: true })
 
 const receive = (state, action) => {
-  let { users } = action;
+  let { users } = action
   return state.merge({
     users,
     fetching: false,

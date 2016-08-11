@@ -64,11 +64,11 @@ export default StyleSheet.create({
   },
   itemContainer: {
     flex: 1,
-    margin: 3,
+    margin: 3
   },
   itemText: {
     padding: 10,
-    shadowColor: "#000000",
+    shadowColor: '#000000',
     shadowOpacity: 0.5,
     shadowRadius: 2,
     shadowOffset: {

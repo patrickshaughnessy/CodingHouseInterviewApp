@@ -7,14 +7,14 @@ export const INITIAL_STATE = Immutable({
   categories: null,
   fetching: null,
   errorMessage: null,
-  errorCode: null,
+  errorCode: null
 })
 
 const mapQuestionsToCategories = (categories) => {
   return categories.reduce((a, category) => {
     let { category: {name: name}, questions } = category
-    a[name] = questions;
-    return a;
+    a[name] = questions
+    return a
   }, {})
 }
 
@@ -62,7 +62,7 @@ const ACTION_HANDLERS = {
   [Types.QUESTIONS_REQUEST]: request,
   [Types.QUESTIONS_RECEIVE]: receive,
   [Types.QUESTIONS_FAILURE]: failure,
-  [Types.RESET]: reset,
+  [Types.RESET]: reset
 }
 
 export default createReducer(INITIAL_STATE, ACTION_HANDLERS)

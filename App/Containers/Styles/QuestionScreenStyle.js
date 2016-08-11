@@ -1,21 +1,21 @@
 import { StyleSheet } from 'react-native'
-import { Colors, Metrics, ApplicationStyles } from '../../Themes/'
+import { Colors, Metrics } from '../../Themes/'
 
 export default StyleSheet.create({
   outerContainer: {
     flex: 1,
-    marginTop: Metrics.navBarHeight,
+    marginTop: Metrics.navBarHeight
     // marginBottom: Metrics.footerHeight
   },
   scrollView: {
-    backgroundColor: Colors.background,
+    backgroundColor: Colors.background
     // borderColor: 'red',
     // borderWidth: 4,
   },
   container: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: Colors.background,
+    backgroundColor: Colors.background
     // borderColor: 'yellow',
     // borderWidth: 4,
   },
@@ -24,7 +24,7 @@ export default StyleSheet.create({
     fontSize: 22,
     fontWeight: '300',
     marginBottom: 20,
-    marginTop:20,
+    marginTop: 20,
     color: Colors.snow,
     textDecorationLine: 'underline'
   },
@@ -35,7 +35,7 @@ export default StyleSheet.create({
   //   padding: 10
   // },
   outerQuestionContainer: {
-    flex:1,
+    flex: 1,
     backgroundColor: 'white'
   },
   questionTitle: {

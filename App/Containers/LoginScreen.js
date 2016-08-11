@@ -27,7 +27,7 @@ class LoginScreen extends React.Component {
       visibleHeight: Metrics.screenHeight,
       topLogo: { width: Metrics.screenWidth }
     }
-    this.isAttempting = false;
+    this.isAttempting = false
   }
 
   componentWillReceiveProps (newProps) {
@@ -83,7 +83,7 @@ class LoginScreen extends React.Component {
 
   handlePressLogin = () => {
     const { email, password } = this.state
-    this.isAttempting = true;
+    this.isAttempting = true
     // attempt a login - a saga is listening to pick it up from here.
     this.props.attemptLogin(email, password)
   }
@@ -120,7 +120,7 @@ class LoginScreen extends React.Component {
               placeholder={'you@codinghouse.co'}
               autoCapitalize='none'
               autoCorrect='false'
-              autoFocus={true}
+              autoFocus
 
             />
           </View>
@@ -144,11 +144,7 @@ class LoginScreen extends React.Component {
           <View style={[styles.loginRow]}>
             <TouchableOpacity style={styles.loginButtonWrapper} disabled={this.isAttempting} onPress={this.handlePressLogin}>
               <View style={styles.loginButton}>
-                {
-                  this.isAttempting ?
-                  <ActivityIndicator /> :
-                  <Text style={styles.loginText}>Sign In</Text>
-                }
+                {this.isAttempting ? <ActivityIndicator /> : <Text style={styles.loginText}>Sign In</Text>}
               </View>
             </TouchableOpacity>
           </View>

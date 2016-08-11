@@ -24,7 +24,7 @@ export default (api) => {
   function * watcher () {
     while (true) {
       const { email, password } = yield take(Types.LOGIN_ATTEMPT)
-      yield put(Actions.reset());
+      yield put(Actions.reset())
       yield call(worker, email, password)
     }
   }

@@ -16,7 +16,7 @@ const attempt = (state, action) =>
 
 // successful logins
 const success = (state, action) => {
-  let { token, user } = action;
+  let { token, user } = action
   return state.merge({
     attempting: false,
     errorCode: null,

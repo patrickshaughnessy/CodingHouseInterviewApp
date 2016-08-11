@@ -21,9 +21,6 @@ class Footer extends React.Component {
   // static defaultProps = {
   //   someSetting: false
   // }
-  constructor(props) {
-    super(props)
-  }
 
   _displayTime = (t) => {
     let time = moment.duration(t, 'seconds')._data
@@ -33,44 +30,44 @@ class Footer extends React.Component {
   }
 
   _handleControlChange = (e) => {
-    let { selectedIndex, selectIndex, timerID, stopTimer, startIntervieweeTime, startInterviewerTime, incrementIntervieweeTime, incrementInterviewerTime, updateTimeControl } = this.props
-    let index = e.nativeEvent.selectedSegmentIndex;
+    let { selectedIndex, timerID, stopTimer, startIntervieweeTime, startInterviewerTime, incrementIntervieweeTime, incrementInterviewerTime, updateTimeControl } = this.props
+    let index = e.nativeEvent.selectedSegmentIndex
 
-    if (selectedIndex === index) return;
+    if (selectedIndex === index) return
 
     if (timerID) {
       clearInterval(timerID)
       stopTimer()
     };
 
-    let intervalID;
+    let intervalID
     switch (index) {
       case 0:
         intervalID = setInterval(() => {
           incrementIntervieweeTime()
-        }, 1000);
+        }, 1000)
         startIntervieweeTime(intervalID)
-        break;
+        break
       case 2:
         intervalID = setInterval(() => {
           incrementInterviewerTime()
-        }, 1000);
+        }, 1000)
         startInterviewerTime(intervalID)
         break
     }
-    updateTimeControl(index);
+    updateTimeControl(index)
   }
 
   render () {
     let { selectedIndex, intervieweeTime, interviewerTime } = this.props
-    let controlOverride;
+    let controlOverride
     switch (selectedIndex) {
       case 0:
-        controlOverride = styles.intervieweeTimeControl;
-        break;
+        controlOverride = styles.intervieweeTimeControl
+        break
       case 2:
-        controlOverride = styles.interviewerTimeControl;
-        break;
+        controlOverride = styles.interviewerTimeControl
+        break
     }
     return (
       <View style={styles.container}>

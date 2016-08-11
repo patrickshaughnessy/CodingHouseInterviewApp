@@ -22,11 +22,11 @@ export default class RadioButtons extends React.Component {
         <View style={styles.container}>
           <View style={styles.radioContainer}>
             {options.map((option, i) => {
-              return(
+              return (
                 <View style={styles.radioContainerInner} key={i}>
                   <TouchableOpacity onPress={() => onChange(position, option)}>
                     <View style={styles.radioOuter}>
-                      { answer == option ? <View style={styles.radioInner}/> : null }
+                      {answer === option ? <View style={styles.radioInner} /> : null}
                     </View>
                   </TouchableOpacity>
                   <Text style={styles.optionText}>{option}</Text>
@@ -42,17 +42,17 @@ export default class RadioButtons extends React.Component {
           <Text style={styles.question}>{question}</Text>
           <View style={styles.radioContainer}>
           {options.map((option, i) => {
-            return(
+            return (
               <View style={styles.radioContainerInner} key={i}>
                 <TouchableOpacity onPress={() => onChange(position, option)}>
                   <View style={styles.radioOuter}>
-                    { answer === option ? <View style={styles.radioInner}/> : null }
+                    {answer === option ? <View style={styles.radioInner} /> : null}
                   </View>
                 </TouchableOpacity>
                 <Text style={styles.optionText}>{option}</Text>
               </View>
               )
-            })}
+          })}
           </View>
 
         </View>
