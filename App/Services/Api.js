@@ -34,8 +34,9 @@ const create = (baseURL = DebugSettings.baseURL) => {
   // Since we can't hide from that, we embrace it by getting out of the
   // way at this level.
   //
-  const login = (email, password) => api.post('/auth', {email, password})
+  const login = (email, password) => api.post('/auth', { email, password })
   const getQuestions = (user) => api.get(`/api/settings/${user._id}`)
+  const getUsers = (token) => api.post(`/api/users`, { token })
 
   // ------
   // STEP 3
@@ -54,6 +55,7 @@ const create = (baseURL = DebugSettings.baseURL) => {
     // a list of the API functions from step 2
     login,
     getQuestions,
+    getUsers,
     // additional utilities
     addMonitor
   }

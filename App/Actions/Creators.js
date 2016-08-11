@@ -21,8 +21,12 @@ const requestQuestions = (user) => ({ type: Types.QUESTIONS_REQUEST, user })
 const receiveQuestions = (payload) => ({ type: Types.QUESTIONS_RECEIVE, ...payload })
 const receiveQuestionsFailure = (payload) => ({ type: Types.QUESTIONS_FAILURE, ...payload })
 
+const requestUsers = (token) => ({ type: Types.USERS_REQUEST, token })
+const receiveUsers = (payload) => ({ type: Types.USERS_RECEIVE, ...payload })
+const receiveUsersFailure = (payload) => ({ type: Types.USERS_FAILURE, ...payload })
+
+const updateInterviewee = (user) => ({ type: Types.UPDATE_INTERVIEWEE, user })
 const updateInterviewData = (payload) => ({ type: Types.UPDATE_INTERVIEW_DATA, payload })
-const updateInterviewName = (name) => ({ type: Types.UPDATE_INTERVIEW_NAME, name })
 
 const updateTimeControl = (index) => ({ type: Types.UPDATE_TIME_CONTROL, index })
 
@@ -43,21 +47,34 @@ export default {
   attemptLogin,
   loginSuccess,
   loginFailure,
+
   logout,
+
   startup,
+
   requestTemperature,
   receiveTemperature,
   receiveTemperatureFailure,
+
   requestQuestions,
   receiveQuestions,
   receiveQuestionsFailure,
+
+  requestUsers,
+  receiveUsers,
+  receiveUsersFailure,
+
+  updateInterviewee,
   updateInterviewData,
-  updateInterviewName,
+
   updateTimeControl,
+
   startIntervieweeTime,
   startInterviewerTime,
   incrementIntervieweeTime,
   incrementInterviewerTime,
+
   stopTimer,
+
   reset,
 }

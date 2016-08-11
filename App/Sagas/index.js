@@ -5,6 +5,7 @@ import { watchStartup } from './StartupSaga'
 import LoginSaga from './LoginSaga'
 import getCityWeather from './GetCityWeatherSaga'
 import getQuestionsSaga from './GetQuestionsSaga'
+import getUsersSaga from './GetUsersSaga'
 
 import DebugSettings from '../Config/DebugSettings'
 
@@ -19,4 +20,5 @@ export default function * root () {
   yield fork(watchStartup)
   yield fork(LoginSaga(api).watcher)
   yield fork(getQuestionsSaga(api).watcher)
+  yield fork(getUsersSaga(api).watcher)
 }

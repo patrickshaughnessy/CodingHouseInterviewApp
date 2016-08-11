@@ -3,7 +3,7 @@ import Immutable from 'seamless-immutable'
 import { createReducer } from 'reduxsauce'
 
 export const INITIAL_STATE = Immutable({
-  name: null,
+  interviewee: null,
   intervieweeTime: 0,
   interviewerTime: 0,
   timeControl: 1,
@@ -14,9 +14,9 @@ export const INITIAL_STATE = Immutable({
 const updateData = (state, action) =>
   state.merge({...action.payload}, {deep: true}) // need deep:true for multiple questions in state
 
-const updateName = (state, action) =>
+const updateInterviewee = (state, action) =>
   state.merge({
-    name: action.name
+    interviewee: action.user
   })
 
 const updateTimeControl = (state, action) =>
@@ -52,7 +52,7 @@ const incrementInterviewerTime = (state, action) =>
 // map our types to our handlers
 const ACTION_HANDLERS = {
   [Types.UPDATE_INTERVIEW_DATA]: updateData,
-  [Types.UPDATE_INTERVIEW_NAME]: updateName,
+  [Types.UPDATE_INTERVIEWEE]: updateInterviewee,
   [Types.UPDATE_TIME_CONTROL]: updateTimeControl,
   [Types.STOP_TIMER]: stopTimer,
   [Types.START_INTERVIEWEE_TIME]: startIntervieweeTime,

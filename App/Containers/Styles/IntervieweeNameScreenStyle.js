@@ -61,5 +61,27 @@ export default StyleSheet.create({
   topLogo: {
     alignSelf: 'center',
     resizeMode: 'contain'
+  },
+  itemContainer: {
+    flex: 1,
+    margin: 3,
+  },
+  itemText: {
+    // flex: 1,
+    padding: 10,
+    shadowColor: "#000000",
+    shadowOpacity: 0.5,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 2,
+      width: 1
+    }
   }
+  // autocompleteContainer: {
+  //   flex: 1,
+  //   left: 0,
+  //   position: 'absolute',
+  //   right: 0,
+  //   top: 20
+  // },
 })
