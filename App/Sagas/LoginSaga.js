@@ -12,9 +12,12 @@ export default (api) => {
       yield put(Actions.loginSuccess({ token, user: JSON.parse(user) }))
       yield put(Actions.requestQuestions(JSON.parse(user)))
       yield put(Actions.requestUsers(token))
-    } else {
+    } else if (response.data) {
       const { status, data: {message} } = response
       yield put(Actions.loginFailure({ message, status }))
+    } else {
+      const { status, problem } = response
+      yield put(Actions.loginFailure({ message: problem, status }))
     }
   }
 

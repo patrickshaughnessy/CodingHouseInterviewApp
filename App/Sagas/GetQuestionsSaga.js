@@ -8,10 +8,12 @@ export default (api) => {
 
     if (response.ok) {
       yield put(Actions.receiveQuestions(response.data))
-    } else {
-      console.log(response);
+    } else if (response.data) {
       const { status, data: {message} } = response
       yield put(Actions.receiveQuestionsFailure({ message, status }))
+    } else {
+      const { status, problem } = response
+      yield put(Actions.receiveQuestionsFailure({ message: problem, status }))
     }
   }
 

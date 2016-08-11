@@ -9,10 +9,13 @@ export default (api) => {
     if (response.ok) {
       const { users } = response.data
       yield put(Actions.receiveUsers({ users: JSON.parse(users) }))
-    } else {
+    } else if (response.data) {
       const { status, data: {message} } = response
       yield put(Actions.receiveUsersFailure({ message, status }))
-    }
+    } else {
+      const { status, problem } = response
+      yield put(Actions.receiveUsersFailure({ message: problem, status }))
+     }
   }
 
   function * watcher () {
