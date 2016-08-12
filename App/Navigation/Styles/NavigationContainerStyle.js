@@ -9,11 +9,11 @@ export default {
   },
   title: {
     color: Colors.snow
-    // borderColor: 'white',
-    // borderWidth: 1
   },
   leftButton: {
     tintColor: Colors.snow
+    // borderColor: 'white',
+    // borderWidth: 3
   },
   rightButton: {
     color: Colors.snow

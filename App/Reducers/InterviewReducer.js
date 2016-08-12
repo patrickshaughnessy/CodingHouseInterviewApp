@@ -53,6 +53,17 @@ const incrementInterviewerTime = (state, action) =>
     interviewerTime: state.interviewerTime + 1
   })
 
+const reset = (state, action) =>
+  state.merge({
+    interviewee: null,
+    intervieweeTime: 0,
+    interviewerTime: 0,
+    timeControl: 1,
+    timerID: null,
+    viewing: null,
+    answers: {}
+  })
+
 // map our types to our handlers
 const ACTION_HANDLERS = {
   [Types.UPDATE_INTERVIEW_DATA]: updateInterviewData,
@@ -63,7 +74,8 @@ const ACTION_HANDLERS = {
   [Types.START_INTERVIEWER_TIME]: startInterviewerTime,
   [Types.INCREMENT_INTERVIEWEE_TIME]: incrementIntervieweeTime,
   [Types.INCREMENT_INTERVIEWER_TIME]: incrementInterviewerTime,
-  [Types.VIEW_QUESTIONS_FOR_CATEGORY]: viewQuestionsForCategory
+  [Types.VIEW_QUESTIONS_FOR_CATEGORY]: viewQuestionsForCategory,
+  [Types.LOGOUT]: reset
 }
 
 export default createReducer(INITIAL_STATE, ACTION_HANDLERS)

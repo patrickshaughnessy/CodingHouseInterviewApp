@@ -38,12 +38,21 @@ const reset = (state, action) =>
     errorMessage: null
   })
 
+const logout = (state, action) =>
+  state.merge({
+    users: null,
+    errorCode: null,
+    errorMessage: null,
+    fetching: false
+  })
+
 // map our types to our handlers
 const ACTION_HANDLERS = {
   [Types.USERS_REQUEST]: request,
   [Types.USERS_RECEIVE]: receive,
   [Types.USERS_FAILURE]: failure,
-  [Types.RESET]: reset
+  [Types.RESET]: reset,
+  [Types.LOGOUT]: logout
 }
 
 export default createReducer(INITIAL_STATE, ACTION_HANDLERS)

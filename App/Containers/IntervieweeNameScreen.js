@@ -22,14 +22,18 @@ class IntervieweeNameScreen extends React.Component {
   constructor (props) {
     super(props)
 
+    let { interviewee } = this.props
+
     this.state = {
-      query: ''
+      query: interviewee && interviewee.name || ''
     }
   }
 
-  // shouldComponentUpdate (nextProps) {
-  //   // const { users } = nextProps
-  //   // return !users ? this.setState({ query: '' }) : true
+  // componentDidMount () {
+  //   const { interviewee } = this.props
+  //   if (interviewee) {
+  //     this.setState({ query: interviewee.name })
+  //   }
   // }
 
   componentWillReceiveProps (newProps) {
@@ -71,7 +75,7 @@ class IntervieweeNameScreen extends React.Component {
 
   _findUsers = (query) => {
     const { users } = this.props
-    if (!query) {
+    if (!query || !users) {
       return users || []
     }
 

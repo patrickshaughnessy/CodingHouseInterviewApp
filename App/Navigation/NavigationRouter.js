@@ -19,11 +19,11 @@ class NavigationRouter extends Component {
   render () {
     return (
       <Router>
-        <Scene key='drawer' component={NavigationDrawer}>
+        <Scene key='drawer' component={NavigationDrawer} renderBackButton={NavItems.hamburgerButton}>
           <Scene key='drawerChildrenWrapper' navigationBarStyle={Styles.navBar} titleStyle={Styles.title} leftButtonIconStyle={Styles.leftButton} rightButtonTextStyle={Styles.rightButton}>
             <Scene key='login' component={LoginScreen} direction='vertical' hideNavBar panHandlers={null} />
-            <Scene initial key='interview' component={IntervieweeNameScreen} title='Interview' renderLeftButton={NavItems.hamburgerButton} />
-            <Scene key='questions' component={QuestionScreen} renderLeftButton={NavItems.hamburgerButton} />
+            <Scene initial key='interview' component={IntervieweeNameScreen} title='Interview' renderBackButton={NavItems.hamburgerButton} />
+            <Scene key='questions' component={QuestionScreen} renderBackButton={NavItems.hamburgerButton} />
           </Scene>
         </Scene>
       </Router>

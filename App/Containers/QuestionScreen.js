@@ -38,8 +38,8 @@ class QuestionScreen extends Component {
   }
 
   componentWillReceiveProps (newProps) {
-    if (newProps) {
-      const { questions, answers, viewing } = newProps
+    const { questions, answers, viewing } = newProps
+    if (questions && answers && viewing) {
       const a = answers[viewing] ? answers[viewing].asMutable({deep: true}) : answers.asMutable()
       const qX = questions[viewing].asMutable({deep: true})
       const qa = qX.map(q => {
@@ -72,7 +72,7 @@ class QuestionScreen extends Component {
         <ScrollView style={styles.scrollView}>
           <View style={styles.container}>
 
-            <Text style={styles.title}>{viewing.slice(0, 1).toUpperCase() + viewing.slice(1)}</Text>
+            <Text style={styles.title}>{viewing && viewing.slice(0, 1).toUpperCase() + viewing.slice(1)}</Text>
 
             <ListView
               contentContainerStyle={styles.listContainer}
