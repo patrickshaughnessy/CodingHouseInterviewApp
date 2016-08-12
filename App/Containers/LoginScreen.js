@@ -1,7 +1,6 @@
 import React, {PropTypes} from 'react'
 import {
   View,
-  ScrollView,
   Text,
   TextInput,
   TouchableOpacity,
