@@ -8,6 +8,7 @@ export default (api) => {
 
     if (response.ok) {
       yield put(Actions.receiveQuestions(response.data))
+      yield put(Actions.requestUsers())
     } else if (response.data) {
       const { status, data: {message} } = response
       yield put(Actions.receiveQuestionsFailure({ message, status }))

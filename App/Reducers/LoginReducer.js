@@ -36,10 +36,6 @@ const failure = (state, action) => {
   })
 }
 
-// logout
-// const logout = (state, action) =>
-//   state.merge({ username: null })
-
 const reset = (state, action) =>
   state.merge({
     token: null,
@@ -53,7 +49,7 @@ const ACTION_HANDLERS = {
   [Types.LOGIN_ATTEMPT]: attempt,
   [Types.LOGIN_SUCCESS]: success,
   [Types.LOGIN_FAILURE]: failure,
-  // [Types.LOGOUT]: logout
+  [Types.LOGOUT]: reset,
   [Types.RESET]: reset
 }
 

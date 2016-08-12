@@ -21,9 +21,9 @@ class NavigationRouter extends Component {
       <Router>
         <Scene key='drawer' component={NavigationDrawer}>
           <Scene key='drawerChildrenWrapper' navigationBarStyle={Styles.navBar} titleStyle={Styles.title} leftButtonIconStyle={Styles.leftButton} rightButtonTextStyle={Styles.rightButton}>
-            <Scene key='login' component={LoginScreen} direction='vertical' hideNavBar />
+            <Scene key='login' component={LoginScreen} direction='vertical' hideNavBar panHandlers={null} />
             <Scene initial key='interview' component={IntervieweeNameScreen} title='Interview' renderLeftButton={NavItems.hamburgerButton} />
-            <Scene key='questions' component={QuestionScreen} />
+            <Scene key='questions' component={QuestionScreen} renderLeftButton={NavItems.hamburgerButton} />
           </Scene>
         </Scene>
       </Router>

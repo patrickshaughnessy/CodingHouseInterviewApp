@@ -4,7 +4,8 @@ import {
   Text,
   TouchableOpacity,
   View,
-  Alert
+  Alert,
+  RefreshControl
 } from 'react-native'
 import { connect } from 'react-redux'
 import RoundedButton from '../Components/RoundedButton'
@@ -26,15 +27,17 @@ class IntervieweeNameScreen extends React.Component {
     }
   }
 
-  componentWillMount () {
-    const { user, login } = this.props
-    if (!user) {
-      login()
-    }
-  }
+  // shouldComponentUpdate (nextProps) {
+  //   // const { users } = nextProps
+  //   // return !users ? this.setState({ query: '' }) : true
+  // }
 
   componentWillReceiveProps (newProps) {
-    const { isFetchingQuestions, questionsError, user, requestQuestions, login } = newProps
+    const { isFetchingQuestions, questionsError, user, requestQuestions, login, interviewee } = newProps
+    if (!user) {
+      this.setState({ query: '' })
+      login()
+    }
     if (!isFetchingQuestions && questionsError) {
       Alert.alert(
         'Hey!',
@@ -44,6 +47,9 @@ class IntervieweeNameScreen extends React.Component {
           {text: 'Login As A Different User', onPress: () => login()}
         ]
       )
+    }
+    if (interviewee) {
+      this.setState({ query: interviewee.name })
     }
   }
 
@@ -80,12 +86,27 @@ class IntervieweeNameScreen extends React.Component {
   }
 
   render () {
+    const { isFetchingUsers, requestUsers } = this.props
     const { query } = this.state
     const users = this._findUsers(query)
     const comp = (q, s) => q.toLowerCase().trim() === s.toLowerCase().trim()
     return (
       <View style={styles.mainContainer}>
-        <ScrollView style={styles.container} keyboardShouldPersistTaps>
+        <ScrollView
+          style={styles.container}
+          keyboardShouldPersistTaps
+          refreshControl={
+            <RefreshControl
+              refreshing={isFetchingUsers}
+              onRefresh={requestUsers}
+              tintColor='#ff0000'
+              title='Pull to refresh user list...'
+              titleColor='#00ff00'
+              colors={['#ff0000', '#00ff00', '#0000ff']}
+              progressBackgroundColor='#ffff00'
+            />
+          }
+        >
 
           <View style={styles.section} >
             <Text style={styles.sectionText} >
@@ -148,7 +169,8 @@ const mapStateToProps = (state) => {
     users: state.users.users,
     usersError: state.users.errorMessage,
     interviewee: state.interview.interviewee,
-    categories: state.questions.categories
+    categories: state.questions.categories,
+    token: state.login.token
   }
 }
 
@@ -157,7 +179,8 @@ const mapDispatchToProps = (dispatch) => {
     login: NavigationActions.login,
     updateInterviewee: (user) => dispatch(Actions.updateInterviewee(user)),
     requestQuestions: (user) => dispatch(Actions.requestQuestions(user)),
-    viewQuestionsForCategory: (category) => dispatch(Actions.viewQuestionsForCategory(category))
+    viewQuestionsForCategory: (category) => dispatch(Actions.viewQuestionsForCategory(category)),
+    requestUsers: (token) => dispatch(Actions.requestUsers(token))
   }
 }
 

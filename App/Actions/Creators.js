@@ -18,7 +18,7 @@ const requestQuestions = (user) => ({ type: Types.QUESTIONS_REQUEST, user })
 const receiveQuestions = (payload) => ({ type: Types.QUESTIONS_RECEIVE, ...payload })
 const receiveQuestionsFailure = (payload) => ({ type: Types.QUESTIONS_FAILURE, ...payload })
 
-const requestUsers = (token) => ({ type: Types.USERS_REQUEST, token })
+const requestUsers = () => ({ type: Types.USERS_REQUEST })
 const receiveUsers = (payload) => ({ type: Types.USERS_RECEIVE, ...payload })
 const receiveUsersFailure = (payload) => ({ type: Types.USERS_FAILURE, ...payload })
 

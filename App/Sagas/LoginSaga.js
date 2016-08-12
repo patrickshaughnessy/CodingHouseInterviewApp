@@ -11,7 +11,7 @@ export default (api) => {
       const { token, user } = response.data
       yield put(Actions.loginSuccess({ token, user: JSON.parse(user) }))
       yield put(Actions.requestQuestions(JSON.parse(user)))
-      yield put(Actions.requestUsers(token))
+      api.setToken(token)
     } else if (response.data) {
       const { status, data: {message} } = response
       yield put(Actions.loginFailure({ message, status }))

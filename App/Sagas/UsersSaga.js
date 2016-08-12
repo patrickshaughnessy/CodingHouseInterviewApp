@@ -3,8 +3,8 @@ import Types from '../Actions/Types'
 import Actions from '../Actions/Creators'
 
 export default (api) => {
-  function * worker (token) {
-    const response = yield call(api.getUsers, token)
+  function * worker () {
+    const response = yield call(api.getUsers)
 
     if (response.ok) {
       const { users } = response.data
@@ -20,8 +20,8 @@ export default (api) => {
 
   function * watcher () {
     while (true) {
-      const { token } = yield take(Types.USERS_REQUEST)
-      yield call(worker, token)
+      yield take(Types.USERS_REQUEST)
+      yield call(worker)
     }
   }
 
