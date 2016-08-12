@@ -82,7 +82,6 @@ class IntervieweeNameScreen extends React.Component {
   render () {
     const { query } = this.state
     const users = this._findUsers(query)
-    console.log(query)
     const comp = (q, s) => q.toLowerCase().trim() === s.toLowerCase().trim()
     return (
       <View style={styles.mainContainer}>
