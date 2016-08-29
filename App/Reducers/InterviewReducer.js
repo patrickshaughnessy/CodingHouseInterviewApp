@@ -8,12 +8,8 @@ export const INITIAL_STATE = Immutable({
   interviewerTime: 0,
   timeControl: 1,
   timerID: null,
-  viewing: null,
   answers: {}
 })
-
-const viewQuestionsForCategory = (state, action) =>
-  state.merge({ viewing: action.category })
 
 const updateInterviewData = (state, action) =>
   state.merge({...action.payload}, {deep: true}) // need deep:true for multiple questions in state
@@ -60,7 +56,6 @@ const reset = (state, action) =>
     interviewerTime: 0,
     timeControl: 1,
     timerID: null,
-    viewing: null,
     answers: {}
   })
 
@@ -74,7 +69,6 @@ const ACTION_HANDLERS = {
   [Types.START_INTERVIEWER_TIME]: startInterviewerTime,
   [Types.INCREMENT_INTERVIEWEE_TIME]: incrementIntervieweeTime,
   [Types.INCREMENT_INTERVIEWER_TIME]: incrementInterviewerTime,
-  [Types.VIEW_QUESTIONS_FOR_CATEGORY]: viewQuestionsForCategory,
   [Types.LOGOUT]: reset
 }
 

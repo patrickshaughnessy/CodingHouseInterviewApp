@@ -1,6 +1,7 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import { autoRehydrate } from 'redux-persist'
 import createLogger from 'redux-logger'
+import devTools from 'remote-redux-devtools'
 import rootReducer from '../Reducers/'
 import Config from '../Config/DebugSettings'
 import createSagaMiddleware from 'redux-saga'
@@ -38,7 +39,8 @@ export default () => {
     const enhancers = compose(
       applyMiddleware(...middleware),
       Reactotron.storeEnhancer(),
-      autoRehydrate()
+      autoRehydrate(),
+      devTools()
     )
 
     store = createStore(
@@ -51,7 +53,8 @@ export default () => {
   } else {
     const enhancers = compose(
       applyMiddleware(...middleware),
-      Reactotron.storeEnhancer()
+      Reactotron.storeEnhancer(),
+      devTools()
     )
 
     store = createStore(
@@ -59,6 +62,8 @@ export default () => {
       enhancers
     )
   }
+
+  devTools.updateStore(store)
 
   // run sagas
   sagaMiddleware.run(sagas)

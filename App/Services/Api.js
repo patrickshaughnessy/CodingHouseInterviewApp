@@ -5,37 +5,24 @@ import DebugSettings from '../Config/DebugSettings'
 
 const create = (baseURL = DebugSettings.baseURL) => {
   const api = apisauce.create({baseURL})
-  console.log(baseURL)
-
-  let token
 
   const addMonitor = api.addMonitor((response) => {
     // Monitors are called passively after every request.
     Reactotron.apiLog(response)
   })
 
-  const setToken = (newToken) => {
-    token = newToken
-  }
+  const login = (credentials) => api.post('/auth', credentials)
+  const getUsers = (token) => api.post('/api/users', { token })
 
-  const getToken = () => {
-    return token || null
-  }
-
-  const login = (email, password) => api.post('/auth', { email, password })
-  const getQuestions = (user) => api.get(`/api/settings/${user._id}`)
-  const getUsers = () => api.post('/api/users', { token })
+  const getSettings = (user) => api.get(`/api/settings/${user._id}`)
 
   return {
     // a list of the API functions
     login,
-    getQuestions,
     getUsers,
+    getSettings,
 
-    // additional utilities
-    addMonitor,
-    setToken,
-    getToken
+    addMonitor
   }
 }
 

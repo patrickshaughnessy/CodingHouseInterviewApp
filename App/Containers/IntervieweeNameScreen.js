@@ -30,23 +30,29 @@ class IntervieweeNameScreen extends React.Component {
   }
 
   componentDidMount () {
-    const { interviewee } = this.props
-    if (interviewee) {
-      this.setState({ query: interviewee.name })
-    }
-    const { user, login } = this.props
+    const { interviewee, user, login } = this.props
+
     if (!user) {
       this.setState({ query: '' })
-      login()
+      return login()
+    }
+
+    if (interviewee) {
+      this.setState({ query: interviewee.name })
     }
   }
 
   componentWillReceiveProps (newProps) {
-    const { isFetchingQuestions, questionsError, user, requestQuestions, login, interviewee } = newProps
+    const { isFetchingQuestions, questionsError, user, requestQuestions, login, interviewee, users, requestUsers } = newProps
     if (!user) {
       this.setState({ query: '' })
-      login()
+      return login()
     }
+
+    if (!users) {
+      return requestUsers()
+    }
+
     if (!isFetchingQuestions && questionsError) {
       Alert.alert(
         'Hey!',
@@ -73,7 +79,7 @@ class IntervieweeNameScreen extends React.Component {
         ]
       )
     } else {
-      viewQuestionsForCategory(categories[0])
+      viewQuestionsForCategory(categories[0].category)
       NavigationActions.questions({ title: interviewee.name })
     }
   }
@@ -95,7 +101,7 @@ class IntervieweeNameScreen extends React.Component {
   }
 
   render () {
-    const { isFetchingUsers, requestUsers } = this.props
+    const { fetching, requestUsers } = this.props
     const { query } = this.state
     const users = this._findUsers(query)
     const comp = (q, s) => q.toLowerCase().trim() === s.toLowerCase().trim()
@@ -106,7 +112,7 @@ class IntervieweeNameScreen extends React.Component {
           keyboardShouldPersistTaps
           refreshControl={
             <RefreshControl
-              refreshing={isFetchingUsers}
+              refreshing={fetching}
               onRefresh={requestUsers}
               tintColor='#ff0000'
               title='Pull to refresh user list...'
@@ -170,16 +176,14 @@ IntervieweeNameScreen.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
+    fetching: state.control.fetching,
+    users: state.users.all,
     name: state.interview.name,
-    user: state.login.user,
-    isFetchingQuestions: state.questions.fetching,
+    categories: state.settings.categories,
+    user: state.user.info,
     questionsError: state.questions.errorMessage,
-    isFetchingUsers: state.users.fetching,
-    users: state.users.users,
     usersError: state.users.errorMessage,
-    interviewee: state.interview.interviewee,
-    categories: state.questions.categories,
-    token: state.login.token
+    interviewee: state.interview.interviewee
   }
 }
 
@@ -189,7 +193,7 @@ const mapDispatchToProps = (dispatch) => {
     updateInterviewee: (user) => dispatch(Actions.updateInterviewee(user)),
     requestQuestions: (user) => dispatch(Actions.requestQuestions(user)),
     viewQuestionsForCategory: (category) => dispatch(Actions.viewQuestionsForCategory(category)),
-    requestUsers: (token) => dispatch(Actions.requestUsers(token))
+    requestUsers: () => dispatch(Actions.requestUsers())
   }
 }
 

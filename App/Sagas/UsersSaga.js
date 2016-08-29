@@ -1,10 +1,10 @@
-import {take, call, put} from 'redux-saga/effects'
+import {take, call, put, select} from 'redux-saga/effects'
 import Types from '../Actions/Types'
 import Actions from '../Actions/Creators'
 
 export default (api) => {
-  function * worker () {
-    const response = yield call(api.getUsers)
+  function * worker (token) {
+    const response = yield call(api.getUsers, token)
 
     if (response.ok) {
       const { users } = response.data
@@ -20,8 +20,11 @@ export default (api) => {
 
   function * watcher () {
     while (true) {
-      yield take(Types.USERS_REQUEST)
-      yield call(worker)
+      yield take(Types.REQUEST_USERS)
+      const token = yield select((state) => state.user.token)
+      if (token) {
+        yield call(worker, token)
+      }
     }
   }
 

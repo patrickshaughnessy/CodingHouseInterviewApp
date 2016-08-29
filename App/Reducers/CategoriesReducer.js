@@ -9,7 +9,7 @@ export const INITIAL_STATE = Immutable({
 const receiveSettings = (state, action) => {
   const { entities } = action.payload
   return state.merge({
-    byId: entities.questions
+    byId: entities.categories
   })
 }
 

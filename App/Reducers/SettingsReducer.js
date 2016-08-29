@@ -3,13 +3,13 @@ import Immutable from 'seamless-immutable'
 import { createReducer } from 'reduxsauce'
 
 export const INITIAL_STATE = Immutable({
-  byId: {}
+  categories: []
 })
 
 const receiveSettings = (state, action) => {
-  const { entities } = action.payload
+  const { result } = action.payload
   return state.merge({
-    byId: entities.questions
+    categories: result.categories
   })
 }
 

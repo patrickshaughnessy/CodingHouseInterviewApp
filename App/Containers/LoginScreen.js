@@ -30,10 +30,10 @@ class LoginScreen extends React.Component {
   }
 
   componentWillReceiveProps (newProps) {
-    this.forceUpdate()
-    const { attempting, errorMessage, close } = newProps
-    if (this.isAttempting && !attempting) {
-      this.isAttempting = false
+    // this.forceUpdate()
+    const { fetching, errorMessage, close, user } = newProps
+    if (fetching) return
+    if (!fetching && !user) {
       if (errorMessage) {
         Alert.alert(
           'Oops',
@@ -81,9 +81,9 @@ class LoginScreen extends React.Component {
 
   handlePressLogin = () => {
     const { email, password } = this.state
-    this.isAttempting = true
-    // attempt a login - a saga is listening to pick it up from here.
-    this.props.attemptLogin(email, password)
+    if (!email || !password) return
+    const { login } = this.props
+    login({ email, password })
   }
 
   handleChangeUsername = (text) => {
@@ -96,9 +96,8 @@ class LoginScreen extends React.Component {
 
   render () {
     const { email, password } = this.state
-    const { attempting } = this.props
-    const editable = !attempting
-    const textInputStyle = editable ? styles.textInput : styles.textInputReadonly
+    const { fetching } = this.props
+    const textInputStyle = fetching ? styles.textInput : styles.textInputReadonly
     return (
       <View contentContainerStyle={{justifyContent: 'center'}} style={[styles.container, {height: this.state.visibleHeight}]}>
         <Image source={Images.logo} style={[styles.topLogo, this.state.topLogo]} />
@@ -109,7 +108,7 @@ class LoginScreen extends React.Component {
               ref='email'
               style={textInputStyle}
               value={email}
-              editable={editable}
+              editable={!fetching}
               keyboardType='default'
               returnKeyType='next'
               onChangeText={this.handleChangeUsername}
@@ -129,7 +128,7 @@ class LoginScreen extends React.Component {
               ref='password'
               style={textInputStyle}
               value={password}
-              editable={editable}
+              editable={!fetching}
               keyboardType='default'
               returnKeyType='go'
               secureTextEntry
@@ -142,7 +141,7 @@ class LoginScreen extends React.Component {
           <View style={[styles.loginRow]}>
             <TouchableOpacity style={styles.loginButtonWrapper} disabled={this.isAttempting} onPress={this.handlePressLogin}>
               <View style={styles.loginButton}>
-                {this.isAttempting ? <ActivityIndicator /> : <Text style={styles.loginText}>Sign In</Text>}
+                {fetching ? <ActivityIndicator /> : <Text style={styles.loginText}>Sign In</Text>}
               </View>
             </TouchableOpacity>
           </View>
@@ -156,22 +155,23 @@ class LoginScreen extends React.Component {
 
 LoginScreen.propTypes = {
   dispatch: PropTypes.func,
-  attempting: PropTypes.bool,
-  attemptLogin: PropTypes.func,
+  fetching: PropTypes.bool,
+  login: PropTypes.func,
   close: PropTypes.func
 }
 
 const mapStateToProps = (state) => {
   return {
-    attempting: state.login.attempting,
-    errorMessage: state.login.errorMessage
+    fetching: state.control.fetching,
+    errorMessage: state.control.errorMessage,
+    user: state.user.info
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     close: NavigationActions.pop,
-    attemptLogin: (email, password) => dispatch(Actions.attemptLogin(email, password))
+    login: (credentials) => dispatch(Actions.login(credentials))
   }
 }
 

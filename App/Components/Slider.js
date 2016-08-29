@@ -29,7 +29,7 @@ export default class SliderComponent extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.innerContainer}>
-          <Text style={styles.text}>{question} ({answer || defaultValue}k)</Text>
+          <Text style={styles.text}>{question} ({answer || defaultValue})</Text>
         </View>
         <View style={styles.innerContainer}>
           <Slider

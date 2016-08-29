@@ -17,17 +17,18 @@ class QuestionScreen extends Component {
   constructor (props) {
     super(props)
 
-    const { questions, answers, viewing } = this.props
+    const { settings, questionsById, answers, viewing } = this.props
 
     const rowHasChanged = (r1, r2) => r1 !== r2
 
     const ds = new ListView.DataSource({rowHasChanged})
 
     const a = answers[viewing] ? answers[viewing].asMutable({deep: true}) : answers.asMutable()
-    const qX = questions[viewing].asMutable({deep: true})
+    const qX = settings.find(setting => setting.category === viewing).questions.asMutable()
     const qa = qX.map(q => {
-      q.answers = a[q._id] ? a[q._id] : []
-      return q
+      let question = questionsById[q].asMutable({deep: true})
+      question.answers = a[q] ? a[q] : []
+      return question
     })
 
     this.state = {
@@ -38,14 +39,16 @@ class QuestionScreen extends Component {
   }
 
   componentWillReceiveProps (newProps) {
-    const { questions, answers, viewing } = newProps
-    if (questions && answers && viewing) {
+    const { settings, questionsById, answers, viewing } = newProps
+    if (settings && answers && viewing) {
       const a = answers[viewing] ? answers[viewing].asMutable({deep: true}) : answers.asMutable()
-      const qX = questions[viewing].asMutable({deep: true})
+      const qX = settings.find(setting => setting.category === viewing).questions.asMutable()
       const qa = qX.map(q => {
-        q.answers = a[q._id] ? a[q._id] : []
-        return q
+        let question = questionsById[q].asMutable({deep: true})
+        question.answers = a[q] ? a[q] : []
+        return question
       })
+
       this.setState({
         dataSource: this.state.dataSource.cloneWithRows(qa)
       })
@@ -54,6 +57,7 @@ class QuestionScreen extends Component {
 
   _renderRow = (rowData) => {
     let { updateInterviewData } = this.props
+    console.log(rowData)
     return (
       <View style={styles.row}>
         <Question
@@ -65,13 +69,13 @@ class QuestionScreen extends Component {
   }
 
   render () {
-    const { viewing } = this.props
+    const { viewing, categoriesById } = this.props
     return (
       <View style={styles.outerContainer}>
         <ScrollView style={styles.scrollView}>
           <View style={styles.container}>
 
-            <Text style={styles.title}>{viewing && viewing.slice(0, 1).toUpperCase() + viewing.slice(1)}</Text>
+            <Text style={styles.title}>{categoriesById[viewing].name}</Text>
 
             <ListView
               contentContainerStyle={styles.listContainer}
@@ -89,9 +93,11 @@ class QuestionScreen extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    questions: state.questions.questions,
+    questionsById: state.questions.byId,
+    categoriesById: state.categories.byId,
+    settings: state.settings.categories,
     answers: state.interview.answers,
-    viewing: state.interview.viewing
+    viewing: state.control.viewing
   }
 }
 
