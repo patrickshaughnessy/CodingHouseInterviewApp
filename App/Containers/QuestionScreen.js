@@ -46,7 +46,6 @@ class QuestionScreen extends Component {
         q.answers = a[q._id] ? a[q._id] : []
         return q
       })
-      console.log('will receive props', qa)
       this.setState({
         dataSource: this.state.dataSource.cloneWithRows(qa)
       })

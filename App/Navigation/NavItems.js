@@ -25,6 +25,18 @@ export default {
     )
   },
 
+  endInterviewButton () {
+    return (
+      <TouchableOpacity onPress={NavigationActions.summary}>
+        <Icon name='angle-right'
+          size={Metrics.icons.medium}
+          color={Colors.snow}
+          style={styles.navButtonLeft}
+        />
+      </TouchableOpacity>
+    )
+  },
+
   hamburgerButton () {
     return (
       <TouchableOpacity onPress={toggleDrawer}>

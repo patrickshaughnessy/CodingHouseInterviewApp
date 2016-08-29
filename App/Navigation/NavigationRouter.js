@@ -9,6 +9,7 @@ import NavItems from './NavItems'
 import IntervieweeNameScreen from '../Containers/IntervieweeNameScreen'
 import QuestionScreen from '../Containers/QuestionScreen'
 import LoginScreen from '../Containers/LoginScreen'
+import InterviewSummaryScreen from '../Containers/InterviewSummaryScreen'
 
 /* **************************
 * Documentation: https://github.com/aksonov/react-native-router-flux
@@ -23,7 +24,8 @@ class NavigationRouter extends Component {
           <Scene key='drawerChildrenWrapper' navigationBarStyle={Styles.navBar} titleStyle={Styles.title} leftButtonIconStyle={Styles.leftButton} rightButtonTextStyle={Styles.rightButton}>
             <Scene key='login' component={LoginScreen} direction='vertical' hideNavBar panHandlers={null} />
             <Scene initial key='interview' component={IntervieweeNameScreen} title='Interview' renderBackButton={NavItems.hamburgerButton} />
-            <Scene key='questions' component={QuestionScreen} renderBackButton={NavItems.hamburgerButton} />
+            <Scene key='questions' component={QuestionScreen} renderBackButton={NavItems.hamburgerButton} renderRightButton={NavItems.endInterviewButton} rightButtonIconStyle={Styles.rightButton} />
+            <Scene key='summary' component={InterviewSummaryScreen} title='Summary' renderBackButton={NavItems.hamburgerButton} />
           </Scene>
         </Scene>
       </Router>

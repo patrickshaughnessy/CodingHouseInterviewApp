@@ -31,7 +31,6 @@ class LoginScreen extends React.Component {
 
   componentWillReceiveProps (newProps) {
     this.forceUpdate()
-
     const { attempting, errorMessage, close } = newProps
     if (this.isAttempting && !attempting) {
       this.isAttempting = false
@@ -43,9 +42,9 @@ class LoginScreen extends React.Component {
             {text: 'OK', onPress: () => console.log('OK pressed')}
           ]
         )
-      } else {
-        close()
       }
+    } else {
+      close()
     }
   }
 

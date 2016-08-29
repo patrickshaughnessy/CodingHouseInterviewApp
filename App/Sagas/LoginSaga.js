@@ -6,7 +6,6 @@ import Actions from '../Actions/Creators'
 export default (api) => {
   function * worker (email, password) {
     const response = yield call(api.login, email, password)
-    console.log(response)
     if (response.ok) {
       const { token, user } = response.data
       yield put(Actions.loginSuccess({ token, user: JSON.parse(user) }))
