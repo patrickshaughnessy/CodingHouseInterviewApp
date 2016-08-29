@@ -5,6 +5,7 @@ import DebugSettings from '../Config/DebugSettings'
 
 const create = (baseURL = DebugSettings.baseURL) => {
   const api = apisauce.create({baseURL})
+  console.log(baseURL)
 
   let token
 
