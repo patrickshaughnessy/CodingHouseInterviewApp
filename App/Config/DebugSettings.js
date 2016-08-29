@@ -4,7 +4,7 @@ const SETTINGS = {
   useFixtures: false,
   ezLogin: false,
   reduxLogging: true,
-  baseURL: __DEV__ ? 'http://localhost:1337' : 'https://chinterviewapp.herokuapp.com'
+  baseURL: __DEV__ ? 'http://localhost:3000' : 'https://chinterviewapp.herokuapp.com'
 }
 
 export default SETTINGS

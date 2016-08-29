@@ -1,9 +1,7 @@
 import Types from './Types'
 
 const attemptLogin = (email, password) => ({ type: Types.LOGIN_ATTEMPT, email, password })
-
 const loginSuccess = (payload) => ({ type: Types.LOGIN_SUCCESS, ...payload })
-
 const loginFailure = (payload) => ({ type: Types.LOGIN_FAILURE, ...payload })
 
 const logout = () => ({ type: Types.LOGOUT })

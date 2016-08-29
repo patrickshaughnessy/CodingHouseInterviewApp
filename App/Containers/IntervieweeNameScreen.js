@@ -29,12 +29,17 @@ class IntervieweeNameScreen extends React.Component {
     }
   }
 
-  // componentDidMount () {
-  //   const { interviewee } = this.props
-  //   if (interviewee) {
-  //     this.setState({ query: interviewee.name })
-  //   }
-  // }
+  componentDidMount () {
+    const { interviewee } = this.props
+    if (interviewee) {
+      this.setState({ query: interviewee.name })
+    }
+    const { user, login } = this.props
+    if (!user) {
+      this.setState({ query: '' })
+      login()
+    }
+  }
 
   componentWillReceiveProps (newProps) {
     const { isFetchingQuestions, questionsError, user, requestQuestions, login, interviewee } = newProps

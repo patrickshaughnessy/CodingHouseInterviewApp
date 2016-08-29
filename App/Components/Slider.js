@@ -22,14 +22,14 @@ export default class SliderComponent extends React.Component {
   render () {
     let { question, position, range, defaultValue, onChange, answer } = this.props
     let rangeDisplay = []
-    for (let i = 1; i <= range; i++) {
+    const interval = Math.floor(range / 10)
+    for (let i = interval; i <= range; i += interval) {
       rangeDisplay.push(<Text key={i} style={styles.rangeText}>{i}</Text>)
     }
-
     return (
       <View style={styles.container}>
         <View style={styles.innerContainer}>
-          <Text style={styles.text}>{question}</Text>
+          <Text style={styles.text}>{question} ({answer || defaultValue}k)</Text>
         </View>
         <View style={styles.innerContainer}>
           <Slider

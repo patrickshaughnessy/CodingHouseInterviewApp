@@ -38,6 +38,7 @@ class DrawerContent extends Component {
     const { logout } = this.props
     this.toggleDrawer()
     logout()
+    NavigationActions.login()
   }
 
   _home = () => {
@@ -48,7 +49,6 @@ class DrawerContent extends Component {
   render () {
     let { categories } = this.props
     const drawers = categories && categories.map((category) => <DrawerButton text={category.slice(0, 1).toUpperCase() + category.slice(1)} onPress={() => this._goToCategory(category)} />)
-
     return (
       <ScrollView style={styles.container}>
         <Image source={Images.logo} style={styles.logo} resizeMode={'contain'} />
