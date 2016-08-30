@@ -54,7 +54,8 @@ const ACTION_HANDLERS = {
   [Types.RECEIVE_QUESTIONS]: receive,
   [Types.RECEIVE_QUESTIONS_FAILURE]: failure,
   [Types.SUBMIT_INTERVIEW]: request,
-  [Types.SUBMIT_INTERVIEW_SUCCESS]: reset
+  [Types.SUBMIT_INTERVIEW_SUCCESS]: reset,
+  [Types.LOGOUT]: reset
 }
 
 export default createReducer(INITIAL_STATE, ACTION_HANDLERS)

@@ -13,8 +13,12 @@ const receiveUsers = (state, action) => {
   })
 }
 
+const reset = (state, action) =>
+  state.set('all', null)
+
 const ACTION_HANDLERS = {
-  [Types.RECEIVE_USERS]: receiveUsers
+  [Types.RECEIVE_USERS]: receiveUsers,
+  [Types.LOGOUT]: reset
 }
 
 export default createReducer(INITIAL_STATE, ACTION_HANDLERS)

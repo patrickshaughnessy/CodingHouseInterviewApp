@@ -79,15 +79,12 @@ class InterviewSummaryScreen extends React.Component {
             </View>
           </Modal>
           <View style={styles.container}>
-
             <Text style={styles.title}>Summary</Text>
-
             <ListView
               contentContainerStyle={styles.listContainer}
               dataSource={this.state.dataSource}
               renderRow={this._renderRow}
             />
-
           </View>
         </ScrollView>
         <SummaryFooter />

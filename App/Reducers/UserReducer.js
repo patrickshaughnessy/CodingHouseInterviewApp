@@ -15,8 +15,15 @@ const success = (state, action) => {
   })
 }
 
+const reset = (state, action) =>
+  state.merge({
+    token: null,
+    info: null
+  })
+
 const ACTION_HANDLERS = {
-  [Types.LOGIN_SUCCESS]: success
+  [Types.LOGIN_SUCCESS]: success,
+  [Types.LOGOUT]: reset
 }
 
 export default createReducer(INITIAL_STATE, ACTION_HANDLERS)
