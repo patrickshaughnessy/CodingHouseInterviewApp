@@ -1,5 +1,10 @@
 import React from 'react'
-import { ScrollView, Text } from 'react-native'
+import {
+  ScrollView,
+  Text,
+  View,
+  ListView
+} from 'react-native'
 import { connect } from 'react-redux'
 // import Actions from '../Actions/Creators'
 // import { Actions as NavigationActions } from 'react-native-router-flux'
@@ -7,42 +12,74 @@ import { connect } from 'react-redux'
 // Styles
 import styles from './Styles/InterviewSummaryScreenStyle'
 
+import SummaryItem from '../Components/SummaryItem'
+
 class InterviewSummaryScreen extends React.Component {
 
-  // constructor (props) {
-  //   super(props)
-  //   this.state = {}
-  // }
+  constructor (props) {
+    super(props)
 
-  componentDidMount () {
-    const { interview, questions } = this.props
-    console.log(interview, questions)
+    const { settings, answers, categoriesById, questionsById } = this.props
+
+    const rowHasChanged = (r1, r2) => r1 !== r2
+
+    const ds = new ListView.DataSource({rowHasChanged})
+
+    const interview = settings.map(setting => {
+      const { category, questions } = setting
+      const categoryName = categoriesById[category].name
+      const questionsWithAnswers = questions.map(q => {
+        let question = questionsById[q].asMutable()
+        question.answers = answers[category] && answers[category][q] || []
+        return question
+      })
+      return {
+        categoryName,
+        questionsWithAnswers
+      }
+    })
+    console.log(interview)
+    this.state = {
+      dataSource: ds.cloneWithRows(interview)
+    }
   }
 
-  _renderInterview = () => {
-    const { questions } = this.props
-    let categories = []
-    for (let category in questions) {
-      console.log(category)
-      categories.push(<Text style={styles.text} key={category}>{category}</Text>)
-    }
-    return categories
+  _renderRow = (rowData) => {
+    return (
+      <View style={styles.row}>
+        <SummaryItem {...rowData} />
+      </View>
+    )
   }
 
   render () {
     return (
-      <ScrollView style={styles.container}>
-        <Text style={styles.text}>InterviewSummaryScreen Container</Text>
-        {this._renderInterview()}
-      </ScrollView>
+      <View style={styles.outerContainer}>
+        <ScrollView style={styles.scrollView}>
+          <View style={styles.container}>
+
+            <Text style={styles.title}>Summary</Text>
+
+            <ListView
+              contentContainerStyle={styles.listContainer}
+              dataSource={this.state.dataSource}
+              renderRow={this._renderRow}
+            />
+
+          </View>
+        </ScrollView>
+        {/* <Footer /> */}
+      </View>
     )
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-    interview: state.interview,
-    questions: state.questions.questions
+    answers: state.interview.answers,
+    settings: state.settings.categories,
+    categoriesById: state.categories.byId,
+    questionsById: state.questions.byId
   }
 }
 

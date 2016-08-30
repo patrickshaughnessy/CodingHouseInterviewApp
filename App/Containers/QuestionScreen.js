@@ -57,7 +57,6 @@ class QuestionScreen extends Component {
 
   _renderRow = (rowData) => {
     let { updateInterviewData } = this.props
-    console.log(rowData)
     return (
       <View style={styles.row}>
         <Question
