@@ -1,18 +1,21 @@
 import React from 'react'
 import {
+  Modal,
   ScrollView,
   Text,
   View,
-  ListView
+  ListView,
+  ActivityIndicator
 } from 'react-native'
 import { connect } from 'react-redux'
 // import Actions from '../Actions/Creators'
-// import { Actions as NavigationActions } from 'react-native-router-flux'
+import { Actions as NavigationActions } from 'react-native-router-flux'
 
 // Styles
 import styles from './Styles/InterviewSummaryScreenStyle'
 
 import SummaryItem from '../Components/SummaryItem'
+import SummaryFooter from './SummaryFooter'
 
 class InterviewSummaryScreen extends React.Component {
 
@@ -44,6 +47,12 @@ class InterviewSummaryScreen extends React.Component {
     }
   }
 
+  componentWillReceiveProps (nextProps) {
+    if (!nextProps.interviewee) {
+      return NavigationActions.interview()
+    }
+  }
+
   _renderRow = (rowData) => {
     return (
       <View style={styles.row}>
@@ -53,9 +62,22 @@ class InterviewSummaryScreen extends React.Component {
   }
 
   render () {
+    const { fetching } = this.props
     return (
       <View style={styles.outerContainer}>
         <ScrollView style={styles.scrollView}>
+          <Modal
+            style={styles.modal}
+            transparent
+            animationType='fade'
+            visible={fetching}
+            onRequestClose={() => console.log('close')}
+          >
+            <View style={styles.innerModalContainer}>
+              <Text style={styles.modalText}>Submitting Interview...</Text>
+              <ActivityIndicator size='large' />
+            </View>
+          </Modal>
           <View style={styles.container}>
 
             <Text style={styles.title}>Summary</Text>
@@ -68,7 +90,7 @@ class InterviewSummaryScreen extends React.Component {
 
           </View>
         </ScrollView>
-        {/* <Footer /> */}
+        <SummaryFooter />
       </View>
     )
   }
@@ -79,7 +101,9 @@ const mapStateToProps = (state) => {
     answers: state.interview.answers,
     settings: state.settings.categories,
     categoriesById: state.categories.byId,
-    questionsById: state.questions.byId
+    questionsById: state.questions.byId,
+    fetching: state.control.fetching,
+    interviewee: state.interview.interviewee
   }
 }
 

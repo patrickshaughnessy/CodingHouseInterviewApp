@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import {
   ScrollView,
   Image,
-  Alert
+  Alert,
+  Text,
+  View
 } from 'react-native'
 import styles from './Styles/DrawerContentStyle'
 import { Images } from '../Themes'
@@ -46,6 +48,22 @@ class DrawerContent extends Component {
     NavigationActions.interview()
   }
 
+  _summary = () => {
+    const { interviewee } = this.props
+    if (!interviewee) {
+      Alert.alert(
+        'Wait!',
+        'Please select an interviewee before continuing',
+        [
+          {text: 'OK', onPress: () => this.toggleDrawer()}
+        ]
+      )
+    } else {
+      this.toggleDrawer()
+      NavigationActions.summary({ title: interviewee.name })
+    }
+  }
+
   render () {
     let { settings, categoriesById } = this.props
     const drawers = settings && settings.map((setting) => {
@@ -61,9 +79,22 @@ class DrawerContent extends Component {
     return (
       <ScrollView style={styles.container}>
         <Image source={Images.logo} style={styles.logo} resizeMode={'contain'} />
-        <DrawerButton text='Home' onPress={() => this._home()} />
+        <View style={styles.categories}>
+          <Text style={styles.text}>CATEGORIES</Text>
+        </View>
         {drawers}
-        <DrawerButton text='Logout' onPress={() => this._logout()} />
+        <View style={styles.categories}>
+          <Text style={styles.text}>NAVIGATION</Text>
+        </View>
+        <View style={styles.section}>
+          <DrawerButton text='Summary' onPress={this._summary} />
+        </View>
+        <View style={styles.section}>
+          <DrawerButton text='Home' onPress={this._home} />
+        </View>
+        <View style={styles.section}>
+          <DrawerButton text='Logout' onPress={this._logout} />
+        </View>
       </ScrollView>
     )
   }

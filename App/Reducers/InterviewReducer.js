@@ -69,7 +69,8 @@ const ACTION_HANDLERS = {
   [Types.START_INTERVIEWER_TIME]: startInterviewerTime,
   [Types.INCREMENT_INTERVIEWEE_TIME]: incrementIntervieweeTime,
   [Types.INCREMENT_INTERVIEWER_TIME]: incrementInterviewerTime,
-  [Types.LOGOUT]: reset
+  [Types.LOGOUT]: reset,
+  [Types.SUBMIT_INTERVIEW_SUCCESS]: reset
 }
 
 export default createReducer(INITIAL_STATE, ACTION_HANDLERS)

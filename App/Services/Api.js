@@ -16,11 +16,14 @@ const create = (baseURL = DebugSettings.baseURL) => {
 
   const getSettings = (user) => api.get(`/api/settings/${user._id}`)
 
+  const submitInterview = (payload) => api.post('/api/interviews', payload)
+
   return {
     // a list of the API functions
     login,
     getUsers,
     getSettings,
+    submitInterview,
 
     addMonitor
   }

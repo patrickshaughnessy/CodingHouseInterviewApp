@@ -40,5 +40,20 @@ export default StyleSheet.create({
   },
   questionTitle: {
     color: 'white'
+  },
+  modal: {
+    backgroundColor: '#f5fcff',
+    flex: 1
+  },
+  innerModalContainer: {
+    justifyContent: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    flex: 1
+  },
+  modalText: {
+    color: 'white',
+    textAlign: 'center',
+    fontSize: 18,
+    marginBottom: 15
   }
 })

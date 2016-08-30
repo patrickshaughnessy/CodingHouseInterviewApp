@@ -32,6 +32,10 @@ const stopTimer = () => ({ type: Types.STOP_TIMER })
 const reset = () => ({ type: Types.RESET })
 
 const viewQuestionsForCategory = (category) => ({ type: Types.VIEW_QUESTIONS_FOR_CATEGORY, category })
+
+const submitInterview = () => ({ type: Types.SUBMIT_INTERVIEW })
+const submitInterviewSuccess = () => ({ type: Types.SUBMIT_INTERVIEW_SUCCESS })
+const submitInterviewFailure = (payload) => ({ type: Types.SUBMIT_INTERVIEW_FAILURE, payload })
 /**
  Makes available all the action creators we've created.
  */
@@ -56,5 +60,8 @@ export default {
   incrementInterviewerTime,
   stopTimer,
   reset,
-  viewQuestionsForCategory
+  viewQuestionsForCategory,
+  submitInterview,
+  submitInterviewSuccess,
+  submitInterviewFailure
 }

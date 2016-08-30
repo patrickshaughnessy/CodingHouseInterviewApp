@@ -74,7 +74,7 @@ class QuestionScreen extends Component {
         <ScrollView style={styles.scrollView}>
           <View style={styles.container}>
 
-            <Text style={styles.title}>{categoriesById[viewing].name}</Text>
+            <Text style={styles.title}>{categoriesById[viewing] && categoriesById[viewing].name}</Text>
 
             <ListView
               contentContainerStyle={styles.listContainer}

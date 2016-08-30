@@ -34,6 +34,14 @@ const failure = (state, action) =>
     error: action.message || 'An unknown error occurred'
   })
 
+const reset = (state, action) =>
+  state.merge({
+    viewing: null,
+    fetching: false,
+    error: null,
+    success: null
+  })
+
 const ACTION_HANDLERS = {
   [Types.LOGIN]: request,
   [Types.LOGIN_SUCCESS]: receive,
@@ -44,7 +52,9 @@ const ACTION_HANDLERS = {
   [Types.VIEW_QUESTIONS_FOR_CATEGORY]: changeViewing,
   [Types.REQUEST_QUESTIONS]: request,
   [Types.RECEIVE_QUESTIONS]: receive,
-  [Types.RECEIVE_QUESTIONS_FAILURE]: failure
+  [Types.RECEIVE_QUESTIONS_FAILURE]: failure,
+  [Types.SUBMIT_INTERVIEW]: request,
+  [Types.SUBMIT_INTERVIEW_SUCCESS]: reset
 }
 
 export default createReducer(INITIAL_STATE, ACTION_HANDLERS)

@@ -7,5 +7,17 @@ export default {
     alignSelf: 'center',
     height: 200,
     width: 200
+  },
+  categories: {
+    borderBottomColor: 'white',
+    borderBottomWidth: 3
+  },
+  section: {
+    borderBottomColor: 'white',
+    borderBottomWidth: 1
+  },
+  text: {
+    color: 'white',
+    textAlign: 'center'
   }
 }
